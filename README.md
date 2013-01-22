@@ -4,9 +4,7 @@ MOJO
 Multiple OJs Operations (aka. mojo) is a bash script to create multiple Open Journal Systems (OJS) 
 installations and "rule them all".
 
-IMPORTANT: Right now (OJS 2.3.6) two minor changes are required for RESTFUL urls. 
-
-More info about those changes: 
+IMPORTANT: Right now (OJS 2.3.6) two minor changes are required for RESTFUL urls. More info about those changes: 
 - http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=7578&start=15#p32090
 - http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=7578&start=15#p32525
 

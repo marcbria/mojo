@@ -62,15 +62,14 @@ Installation
 Known bugs
 ----------
 
-- Unable to login if your OJS code is not "patched" (See: pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=7578)
+- Unable to login if your OJS code is not "patched".
 - Permissions need to be reviewed (sudo not mandatory, avoid overwriting OJS ones...)
 - Better parameter checking.
 
 ToDo
 ----
 
-- Request minor changes in SessionManager class, bootstrap and config to suport multiOJS "out of the box".
-  (See: http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=7578)
+- Request PKP a few minor changes in SessionManager class, bootstrap and config to suport multiOJS "out of the box".
 - Ask for confirmation in potentially harmful operations.
 - Backup&Restore commands: Self explainatory.
 - Hot backup with mysqlhotdupm

@@ -55,7 +55,7 @@
 
 # SCRIPT CONFIGURATION CONSTANTS: ==============================================
 
-MYSQLPWD="myPassword"
+MYSQLPWD="qbMwkHT6"
 
 # Path of the service root (P.e: /home/ojs)
 PATHBASE="/home/ojs"
@@ -71,7 +71,7 @@ PATHWEB="$PATHBASE/htdocs"
 PATHDATA="$PATHBASE/webdata"
 
 # Base URL for the service (P.e: http://revistes.uab.cat)
-URLBASE="http://magazine.localhost.net"
+URLBASE="http://ojs.projecteictineo.com"
 
 # DB dump of the OJS model
 # DBDUMP="baseFinal.sql"

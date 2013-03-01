@@ -30,7 +30,7 @@
 installed = On
 
 ; MBR: The canonical URL to the OJS installation (excluding the trailing slash)
-base_url = "http://%domainName%"
+base_url = "http://ojs.projecteictineo.com/%domainName%"
 
 ; Path to the registry directory (containing various settings files)
 ; Although the files in this directory generally do not contain any
@@ -113,9 +113,9 @@ citation_checking_max_processes = 3
 
 driver = mysql
 host = localhost
-username = root
-password = "myPassword"
-name = ojs_%revistaTag%
+username = ojs_mojo_base
+password = qbMwkHT6
+name = ojs_mojo_base_%revistaTag%
 
 ; Enable persistent connections
 persistent = Off

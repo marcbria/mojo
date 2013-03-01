@@ -1,6 +1,6 @@
 # From: http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=3546
 # Extended: http://pkp.sfu.ca/support/forum/viewtopic.php?f=2&t=2616
-# Recreated on: 20121112
+# Recreated on: 20130220
 
 AcceptPathInfo On
 
@@ -12,10 +12,18 @@ RewriteEngine On
 RewriteRule ^robots.txt$ /robots.txt.php
 
 
-# Rules for magazine marcus
-RewriteRule ^marcus$ marcus/
-RewriteRule ^marcus/(.*)$ ojs-marcus/index.php/marcus/$1 [L,QSA]
-RewriteRule ^ojs-marcus/marcus/(.*)$ ojs-marcus/index.php/marcus/$1 [L,QSA]
+# Rules for magazine test3
+RewriteRule ^test3$ test3/
+RewriteRule ^test3/(.*)$ ojs-test3/index.php/test3/$1 [L,QSA]
+RewriteRule ^ojs-test3/test3/(.*)$ ojs-test3/index.php/test3/$1 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ojs-marcus/(.*)$ ojs-marcus/index.php/index/$1 [L]
+RewriteRule ^ojs-test3/(.*)$ ojs-test3/index.php/index/$1 [L]
+
+# Rules for magazine firstojs
+RewriteRule ^firstojs$ firstojs/
+RewriteRule ^firstojs/(.*)$ ojs-firstojs/index.php/firstojs/$1 [L,QSA]
+RewriteRule ^ojs-firstojs/firstojs/(.*)$ ojs-firstojs/index.php/firstojs/$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ojs-firstojs/(.*)$ ojs-firstojs/index.php/index/$1 [L]

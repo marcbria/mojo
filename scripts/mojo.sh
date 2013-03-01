@@ -437,6 +437,15 @@ case $1 in
       then
         echo "There are no other versions diferent to current"
       fi
+      echo ""
+      echo "Installed plugins:"
+      echo "-----------------"
+      for i in `ls $PATHBASE/source/versions/`
+      do
+        echo "In $i:"
+          ls $PATHBASE/source/versions/$i/plugins/*
+      done
+
       echo "====================================================="
   ;;
     *)

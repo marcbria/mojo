@@ -1,0 +1,61 @@
+diff --git a/classes/article/ArticleGalleyDAO.inc.php b/classes/article/ArticleGalleyDAO.inc.php
+index c2605c2..f4c2e7c 100644
+--- a/classes/article/ArticleGalleyDAO.inc.php
++++ b/classes/article/ArticleGalleyDAO.inc.php
+@@ -157,7 +157,9 @@ class ArticleGalleyDAO extends DAO {
+ 	 */
+ 	function &getGalleyByBestGalleyId($galleyId, $articleId) {
+ 		if ($galleyId != '') $galley =& $this->getGalleyByPublicGalleyId($galleyId, $articleId);
+-		if (!isset($galley)) $galley =& $this->getGalley((int) $galleyId, $articleId);
++		if (!isset($galley) && ctype_digit("$galleyId")) {
++			$galley =& $this->getGalley((int) $galleyId, $articleId);
++		}
+ 		return $galley;
+ 	}
+ 
+diff --git a/classes/article/PublishedArticleDAO.inc.php b/classes/article/PublishedArticleDAO.inc.php
+index be41e8e..f4c2537 100644
+--- a/classes/article/PublishedArticleDAO.inc.php
++++ b/classes/article/PublishedArticleDAO.inc.php
+@@ -526,7 +526,9 @@ class PublishedArticleDAO extends DAO {
+ 	 */
+ 	function &getPublishedArticleByBestArticleId($journalId, $articleId, $useCache = false) {
+ 		$article =& $this->getPublishedArticleByPublicArticleId((int) $journalId, $articleId, $useCache);
+-		if (!isset($article)) $article =& $this->getPublishedArticleByArticleId((int) $articleId, (int) $journalId, $useCache);
++		if (!isset($article) && ctype_digit("$articleId")) {
++			$article =& $this->getPublishedArticleByArticleId((int) $articleId, (int) $journalId, $useCache);
++		}
+ 		return $article;
+ 	}
+ 
+diff --git a/classes/article/SuppFileDAO.inc.php b/classes/article/SuppFileDAO.inc.php
+index a63953c..65549a8 100644
+--- a/classes/article/SuppFileDAO.inc.php
++++ b/classes/article/SuppFileDAO.inc.php
+@@ -323,7 +323,9 @@ class SuppFileDAO extends DAO {
+ 	 */
+ 	function &getSuppFileByBestSuppFileId($articleId, $suppId) {
+ 		$suppFile =& $this->getSuppFileByPublicSuppFileId($suppId, $articleId);
+-		if (!isset($suppFile)) $suppFile =& $this->getSuppFile((int) $suppId, $articleId);
++		if (!isset($suppFile) && ctype_digit("$suppId")) {
++			$suppFile =& $this->getSuppFile((int) $suppId, $articleId);
++		}
+ 		return $suppFile;
+ 	}
+ 
+diff --git a/classes/issue/IssueDAO.inc.php b/classes/issue/IssueDAO.inc.php
+index a5a86b6..e64e37a 100644
+--- a/classes/issue/IssueDAO.inc.php
++++ b/classes/issue/IssueDAO.inc.php
+@@ -154,7 +154,9 @@ class IssueDAO extends DAO {
+ 	 */
+ 	function &getIssueByBestIssueId($issueId, $journalId = null, $useCache = false) {
+ 		$issue =& $this->getIssueByPublicIssueId($issueId, $journalId, $useCache);
+-		if (!isset($issue)) $issue =& $this->getIssueById((int) $issueId, $journalId, $useCache);
++		if (!isset($issue) && ctype_digit("$issueId")) {
++			$issue =& $this->getIssueById((int) $issueId, $journalId, $useCache);
++		}
+ 		return $issue;
+ 	}
+ 
+

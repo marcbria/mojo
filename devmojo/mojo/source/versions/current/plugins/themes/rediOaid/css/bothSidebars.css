@@ -1,0 +1,42 @@
+/**
+ * bothSidebars.css
+ *
+ * Copyright (c) 2003-2009 John Willinsky
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ *
+ * Site-wide shared elements for pages including both a left-hand sidebar and a
+ * right-hand sidebar.
+ *
+ * $Id: bothSidebars.css,v 1.7.2.1 2009/04/08 19:43:30 asmecher Exp $
+ */
+
+/**
+ * Common HTML elements
+ */
+
+
+#main { margin-left: 0; margin-right: 0; margin-top: 0; padding: 0 0.3em 2em 0.3em; width: 578px !important; float: left !important; height: 100%; display: inline; overflow: hidden; /*	position: relative;*//* border-left: 1px solid #F3F3F3; border-right: 1px solid #F3F3F3; */}
+
+#rightSidebar, #leftSidebar {width: 200px;}
+
+#rightSidebar {padding: 0 0 5px 5px;}
+#leftSidebar { padding: 0 5px 5px 0px;}
+
+#rightSidebar #sidebarUser input {width: 98px;}
+#rightSidebar #sidebarUser input.button {width: 112px;}
+
+#leftSidebar {float: left !important; margin-left: 0;}
+#leftSidebar #sidebarUser form table tr td input {width: 96px; !width: 92px;}
+#leftSidebar #sidebarUser form table tr td input#remember {width: 20px;} 
+#leftSidebar #sidebarUser form table tr td input.button {width: 112px; !border: none;}
+
+#main #navbar {!max-height: 28px;}
+
+span.blockTitle {width: 186px;}
+#leftSidebar span.blockTitle {width: 180px;}
+
+#sidebarNavigation input { width: 154px;}
+#sidebarNavigation select {width: 160px;}
+
+
+#body { width: 100%; margin: 0;}

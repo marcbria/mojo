@@ -27,6 +27,7 @@
 #                   link2fold: Replaces a symlink with the folder's content.
 #                   upgrade:   Todo: Replaces "current" links to "new" version links and upgrades ojs
 #                              (Equivalent to ./mojo.sh r-links traduccio new)
+#                   info:
 #
 #   <magazine-tag>: Short name of the magazine that will be used as an ID 
 #                   (folders and DB) and as an URL (pe: magazine01).

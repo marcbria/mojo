@@ -406,6 +406,39 @@ case $1 in
         fi
 	;;
 
+    info)
+      echo "====================================================="
+      echo "MOJO Configuration: "
+      echo "------------------"
+      echo "  PATHBASE: $PATHBASE"
+      echo "  PATHMOTOR: $PATHMOTOR"
+      echo "  PATHWEB: $PATHWEB"
+      echo "  PATHDATA: $PATHDATA"
+      echo "  URLBASE: $URLBASE"
+      echo "  DBDUMP: $DBDUMP"
+      echo ""
+      echo "Aviable OJS versions:"
+      echo "--------------------"
+      echo "Version in current:"
+      head --lines=3 "$PATHMOTOR/docs/RELEASE"
+
+      onlycurr=true
+      for i in `ls $PATHBASE/source/versions/`
+      do
+        if [ $i != 'current' ]
+        then
+          onlycurr=false
+          echo ""
+          echo "In $i:"
+          head --lines=3 "$PATHBASE/source/versions/$i/docs/RELEASE"
+        fi
+      done
+      if [ onlycurr ] 
+      then
+        echo "There are no other versions diferent to current"
+      fi
+      echo "====================================================="
+  ;;
     *)
         ./mojo.sh help
 	;;

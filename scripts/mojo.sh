@@ -445,8 +445,18 @@ case $1 in
         echo "In $i:"
           ls $PATHBASE/source/versions/$i/plugins/*
       done
-
       echo "====================================================="
+      echo "Current instalations:"
+      echo "--------------------"
+      for chunk in $( find $PATHWEB -type d -name 'ojs-*' )
+      do
+        if [ -e $chunk/help ]
+        then
+          src=`ls -l $chunk/help| awk '{print $11}'|sed s/help//g`
+          echo "$chunk  --->  $src"
+        fi
+      done
+
   ;;
     *)
         ./mojo.sh help

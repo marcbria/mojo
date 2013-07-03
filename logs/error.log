@@ -1,0 +1,4 @@
+[Thu Dec 27 16:41:00 2012] [error] [client 127.0.0.1] ojs2: Database connection failed!
+[Thu Dec 27 16:41:00 2012] [error] [client 127.0.0.1] File does not exist: /home/ojs/htdocs/favicon.ico
+[Thu Dec 27 16:41:00 2012] [error] [client 127.0.0.1] File does not exist: /home/ojs/htdocs/favicon.ico
+[Thu Dec 27 16:44:37 2012] [error] [client 127.0.0.1] script '/home/ojs/htdocs/mbr.php' not found or unable to stat

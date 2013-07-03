@@ -1,0 +1,58 @@
+/**
+ * fontSmall.css
+ *
+ * Copyright (c) 2003-2009 John Willinsky
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ *
+ * Site-wide shared stylesheet for small fonts.
+ *
+ * $Id: fontSmall.css,v 1.1.2.1 2009/04/08 19:43:30 asmecher Exp $
+ */
+
+
+body {
+	font-size: 0.95em;
+}
+
+#body {min-height: 449px;}
+
+#header {font-size: 0.95em; }
+
+#main h2 {font-size: 120%; }
+#main h3 {font-size: 110%; }
+
+#main #navbar ul.menu {padding-bottom: 14px; }
+#main #navbar ul.menu a {font-size: 11px;}
+#content {padding-left: 1em;}
+#content h3 {font-size: 1.25em;}
+#content h4.tocSectionTitle {font-size: 1.45em;}
+
+a.action {font-size: 0.9em;}
+
+
+#sidebarHelp a.blockTitle {font-size: 1.1em; line-height: 27px;}
+
+#sidebarUser {font-size: 0.90em;}
+#sidebarUser form table tr td {font-size: 1.1em; }
+#sidebarUser form table tr td input {font-size: 1.1em; }
+#sidebarUser form table tr td input.button {font-size: 1.1em; }
+#sidebarUser ul li a {font-size: 1.1em; }
+
+#sidebarLanguageToggle select {font-size: 1.05em; }
+
+#sidebarNavigation {font-size: 0.90em;}
+#sidebarNavigation select.selectMenu {font-size: 1.1em; }
+#sidebarNavigation ul li a {font-size: 1.15em;}
+
+#sidebarInformation {font-size: 0.90em;}
+#sidebarInformation ul li a {font-size: 1.1em;}
+#sidebarNavigation input, #sidebarNavigation select, #sidebarNavigation input.button {font-size: 1.2em;} 
+
+#sidebarInformation, #sidebarLanguageToggle, #sidebarFontSize, #sidebarEditor, #sidebarAuthor, #sidebarProofreader, #sidebarReviewer, #sidebarSectionEditor, #sidebarLayoutEditor {font-size: 0.90em;}
+
+
+table.announcements td.posted {	font-size: 11px;}
+table.announcements td.more  {font-size: 11px;}
+
+.issueCoverDescription {font-size: 1.15em;}
+#issueCoverDescription {font-size: 1.15em;}

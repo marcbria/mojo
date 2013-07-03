@@ -1,0 +1,21 @@
+# From: http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=3546
+# Extended: http://pkp.sfu.ca/support/forum/viewtopic.php?f=2&t=2616
+# Recreated on: 20121112
+
+AcceptPathInfo On
+
+RewriteEngine On
+
+RewriteBase /
+
+RewriteEngine On
+RewriteRule ^robots.txt$ /robots.txt.php
+
+
+# Rules for magazine marcus
+RewriteRule ^marcus$ marcus/
+RewriteRule ^marcus/(.*)$ ojs-marcus/index.php/marcus/$1 [L,QSA]
+RewriteRule ^ojs-marcus/marcus/(.*)$ ojs-marcus/index.php/marcus/$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ojs-marcus/(.*)$ ojs-marcus/index.php/index/$1 [L]

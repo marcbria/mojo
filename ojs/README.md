@@ -99,6 +99,8 @@ Follow the history of this script in the following thread:
 
 http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=7578&p=31475#p31475
 
+Thanks to [PKP](http://pkp.sfu.ca) and [Projecte Ictineo](http://projecteictineo.com) for the feedback, support and work to keep this project up. 
+
 Contact
 -------
 

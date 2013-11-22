@@ -1,8 +1,0 @@
-
-# Rules for magazine ictpapers
-RewriteRule ^ictpapers$ ictpapers/
-RewriteRule ^ictpapers/(.*)$ ojs-ictpapers/index.php/ictpapers/$1 [L,QSA]
-RewriteRule ^ojs-ictpapers/ictpapers/(.*)$ ojs-ictpapers/index.php/ictpapers/$1 [L,QSA]
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ojs-ictpapers/(.*)$ ojs-ictpapers/index.php/index/$1 [L]

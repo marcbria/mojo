@@ -72,7 +72,7 @@
 #       LICENSE:  GPL 3
 #       CREATED:  06/04/11 16:53:15 CEST
 #       UPDATED:  21/10/13 10:32:33 CEST
-#      REVISION:  0.27
+#      REVISION:  0.28
 #===============================================================================
 
 # SCRIPT CONFIGURATION CONSTANTS: ==============================================
@@ -120,6 +120,8 @@ DEBUG=false
 #===============================================================================
 
 NOW="$(date +"%Y%m%d-%M%S")"
+
+# Don't change this variables: Place your MySql usr/pwd in .secrets file
 mysqlUsr=""
 mysqlPwd=""
 
@@ -127,13 +129,11 @@ mysqlPwd=""
 
 function getMyPwd() {
     # Get mySql pwd (may be is better using config variables... or directly OJS configs):
-    if [ -f .secret ]
-	then
+    if [ -f .secret ] ; then
     	. .secret
     else
 	    # If not defined, asks for passwd:
-	    if [ ! $mysqlPwd ]
-	    then
+	    if [ ! $mysqlPwd ] ; then
 	      read -s -p "Enter MYSQL root password: " mysqlPwd
 
 	      while ! mysql -u root -p$mysqlPwd  -e ";" ; do
@@ -163,11 +163,9 @@ function folderExist() {
   # echo "folder: $2"
   # echo "message: [$3]"
 
-  if [ $1 == "NOT" ] || [ $1 == "NO" ] || [ $1 == "false" ]
-  then
+  if [ $1 == "NOT" ] || [ $1 == "NO" ] || [ $1 == "false" ] ; then
     # Checking if folder NOT exists
-    if [ ! -r "$2" ]
-    then
+    if [ ! -r "$2" ] ; then
       echo -e "${3:-Folder NOT exists: $2}"
       true
     else
@@ -175,8 +173,7 @@ function folderExist() {
     fi
   else
     # Checking if folder exists
-    if [ -r "$2" ]
-    then
+    if [ -r "$2" ] ; then
       echo -e "${3:-Folder exists: $2}"
       true
     else
@@ -381,8 +378,7 @@ case $1 in
     ;;
 
     list|l)
-        if [ "$2" = "" ]
-        then
+        if [ "$2" = "" ] ; then
             echo "Error: You must indicate the sub-action."
             echo "Syntax: ./mojo.sh list [magazines|total]"
             exit 0
@@ -393,7 +389,9 @@ case $1 in
 			        # ToDo: Exclude non ojs folders from this list (maybe checking if they really are OJS).
 			        # ToDo: Extends "list" with params like "list status" (to show active and inactive magazines) or "list version"...
 
-			        echo "-> List of magazines:"
+			        if [ $DEBUG == true ] ; then 
+                        echo "-> List of magazines:"
+                    fi
 			        ls -1 $PATHWEB | grep ojs | grep -v "\-base"
 		        ;;
 
@@ -421,10 +419,8 @@ case $1 in
         # $3: <shortname>
         # $4: last|<backupId
 
-        if [ "$3" = "" ] 
-        then
-	        if [ "$2" = "all" ] || [ "$2" = "db" ] 
-	        then
+        if [ "$3" = "" ] ; then
+	        if [ "$2" = "all" ] || [ "$2" = "db" ] ; then
 	            echo "Error: You must indicate the the magazine's alias."
 		        echo "Syntax: ./mojo.sh create $2 <shortname> [<contact-mail> [<owner-name> [<magazine-title>]]]"
 	            exit 0
@@ -470,8 +466,7 @@ case $1 in
         # ToDo: Argument's validation.
         # ToDo: Error checking.
 
-        if [ "$2" = "" ]
-        then
+        if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
             echo "Syntax: ./mojo.sh d-createfiles <shortname>"
             exit 0
@@ -538,8 +533,7 @@ case $1 in
         # ToDo: Argument's validation.
         # ToDo: Error checking.
 
-        if [ "$2" = "" ]
-        then
+        if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
             echo "Syntax: ./mojo.sh d-createdb <shortname>"
             exit 0
@@ -555,22 +549,19 @@ case $1 in
             sed -e "s/REDI_REVISTA_TAG/$2/g" "$PATHBASE/source/templates/$DBDUMP" > $PATHTMP/$2-fill.sql
 
             # Replaces REDI_REVISTA_MAIL tag with the specified mail (REDI_REVISTA_MAIL):
-            if [ "$3" ]
-            then
+            if [ "$3" ] ; then
             echo "----> Editor's Mail: $3"
                 sed -i "s/REDI_REVISTA_MAIL/$3/g" $PATHTMP/$2-fill.sql
             fi
 
             # Replaces REDI_REVISTA_RESPONSABLE with the specified magazine's responsible name:
-            if [ "$4" ]
-            then
+            if [ "$4" ] ; then
                 echo "----> Editor' Full Name: $4"
                 sed -i "s/REDI_REVISTA_RESPONSABLE/$4/g" $PATHTMP/$2-fill.sql
             fi
 
             # Replaces REDI_REVISTA_TITLE with the specified magazine's title:
-            if [ "$5" ]
-            then
+            if [ "$5" ] ; then
                 echo "----> Magazine's Title: $5"
                 sed -i "s/REDI_REVISTA_TITLE/$5/g" $PATHTMP/$2-fill.sql
             fi
@@ -592,8 +583,7 @@ case $1 in
         # ToDo: Argument's validation.
         # ToDo: Error checking.
 
-        if [ "$2" = "" ]
-        then
+        if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
             echo "Syntax: ./mojo.sh d-createall <shortname>"
             exit 0
@@ -626,10 +616,8 @@ case $1 in
         # $3: <shortname>
         # $4: last|<backupId
 
-        if [ "$3" = "" ] 
-        then
-	        if [ "$2" = "all" ] || [ "$2" = "db" ] 
-	        then
+        if [ "$3" = "" ] ; then
+	        if [ "$2" = "all" ] || [ "$2" = "db" ] ; then
 	            echo "Error: You must indicate the the magazine's alias."
 		        echo "Syntax: ./mojo.sh delete $2 <shortname>"
 	            exit 0
@@ -679,16 +667,14 @@ case $1 in
 
         forceDelete=$3
 
-        if [ "$2" = "" ]
-        then
+        if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
             echo "Syntax: ./mojo.sh deletefiles <shortname> [<forceDelete>]"
             exit 0
         else
             echo "CODE & DATA of magazine [ojs_$2] are going to be REMOVED."
 
-            if [ ! $forceDelete ]
-        	then
+            if [ ! $forceDelete ] ; then
             	confirm "--> Are you sure? [y/N]" && exit 0
             fi
 
@@ -716,16 +702,14 @@ case $1 in
 
         forceDelete=$3
 
-        if [ "$2" = "" ]
-        then
+        if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
             echo "Syntax: ./mojo.sh deletedb <shortname> [<forceDelete>]"
             exit 0
         else
             echo "DB of magazine [ojs_$2] is going to be REMOVED."
 
-            if [ ! $forceDelete ]
-            then
+            if [ ! $forceDelete ] ; then
 	            confirm "--> Are you sure? [y/N]" && exit 0
             fi            
 
@@ -754,16 +738,14 @@ case $1 in
 
         forceDelete=$3
 
-        if [ "$2" = "" ]
-        then
+        if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
             echo "Syntax: ./mojo.sh deleteall <shortname> [<forceDelete>]"
             exit 0
         else
             echo "Magazine [ojs_$2] is going to be FULL REMOVED (code, data and DB)"
 
-            if [ ! $forceDelete ]
-            then
+            if [ ! $forceDelete ] ; then
 	            confirm "--> Are you sure? [y/N]" && exit 0
             fi            
 
@@ -789,8 +771,7 @@ case $1 in
         # $3: <shortname>
         # $4: <isCheckpoint>
 
-        if [ "$3" = "" ] 
-        then
+        if [ "$3" = "" ] ; then
             echo "Error: You must indicate the sub-action and the magazine's alias."
             echo "Syntax: ./mojo.sh backup (code|data|files|db|all) <shortname> [<isCheckPoint>]"
             exit 0
@@ -816,10 +797,8 @@ case $1 in
                     ln -s -f $PATHBACKUP/code/$3/$NOW.tgz $PATHBACKUP/all/$3/$NOW-code.tgz
 
                     # Is this backup a checkpoint?
-                    if [ $# -eq 4 ]
-                    then
-                        if [ $4 == "true" ] || [ $4 == 1 ]
-                        then
+                    if [ $# -eq 4 ] ; then
+                        if [ $4 == "true" ] || [ $4 == 1 ] ; then
                             echo "--> This backup is a CHECKPOINT: will be considered the last code version by mojo."
                             ln -s -f $PATHBACKUP/code/$3/$NOW.tgz $PATHBACKUP/all/$3/last-code.tgz
                         fi
@@ -844,10 +823,8 @@ case $1 in
                     ln -s -f $PATHBACKUP/data/$3/$NOW.tgz $PATHBACKUP/all/$3/$NOW-data.tgz
 
                     # Is this backup a checkpoint?
-                    if [ $# -eq 4 ]
-                    then
-                        if [ $4 == "true" ] || [ $4 == 1 ]
-                        then
+                    if [ $# -eq 4 ] ; then
+                        if [ $4 == "true" ] || [ $4 == 1 ] ; then
                             echo "--> This backup is a CHECKPOINT: will be considered the last data version by mojo."
                             ln -s -f $PATHBACKUP/data/$3/$NOW.tgz $PATHBACKUP/all/$3/last-data.tgz
                         fi
@@ -875,10 +852,8 @@ case $1 in
                     ln -s -f $PATHBACKUP/data/$3/$NOW.tgz $PATHBACKUP/all/$3/$NOW-data.tgz
 
                     # Is this backup a checkpoint?
-                    if [ $# -eq 4 ]
-                    then
-                        if [ $4 == "true" ] || [ $4 == 1 ]
-                        then
+                    if [ $# -eq 4 ] ; then
+                        if [ $4 == "true" ] || [ $4 == 1 ] ; then
                             echo "--> This backup is a CHECKPOINT: will be considered the last code & data version by mojo."
                             ln -s -f $PATHBACKUP/code/$3/$NOW.tgz $PATHBACKUP/all/$3/last-code.tgz
                             ln -s -f $PATHBACKUP/data/$3/$NOW.tgz $PATHBACKUP/all/$3/last-data.tgz
@@ -906,8 +881,7 @@ case $1 in
         # ToDo: Argument's validation.
         # ToDo: Error checking.
 
-        if [ "$2" = "" ]
-        then
+        if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
             echo "Syntax: ./mojo.sh backupdb <shortname> [<isCheckpoint>]"
             echo "To get a list of every magazine: ./mojo.sh list"
@@ -932,10 +906,8 @@ case $1 in
             ln -s -f $PATHBACKUP/dbs/$2/$NOW.tgz $PATHBACKUP/all/$2/$NOW-db.tgz
 
             # Is this backup is a checkpoint?
-            if [ $# -eq 3 ]
-            then
-                if [ $3 == "true" ] || [ $3 == 1 ]
-                then
+            if [ $# -eq 3 ] ; then
+                if [ $3 == "true" ] || [ $3 == 1 ] ; then
                     echo "--> This backup is a CHECKPOINT: will be considered the last DB version by mojo."
                     ln -s -f $PATHBACKUP/dbs/$2/$NOW.tgz $PATHBACKUP/all/$2/last-db.tgz
                 fi
@@ -992,10 +964,8 @@ case $1 in
             ln -s -f $PATHBACKUP/data/$2/$NOW.tgz $PATHBACKUP/all/$2/$NOW-data.tgz
 
             # Is this backup the "last" backup?
-            if [ $# -eq 3 ]
-            then
-                if [ $3 == "true" ] || [ $3 == 1 ]
-                then
+            if [ $# -eq 3 ] ; then
+                if [ $3 == "true" ] || [ $3 == 1 ] ; then
                     echo "--> This backup is a CHECKPOINT: will be considered the last version to be restored by mojo"
                     # Define last backups:
                     ln -s -f $PATHBACKUP/code/$2/$NOW.tgz $PATHBACKUP/all/$2/last-code.tgz
@@ -1023,8 +993,7 @@ case $1 in
         # $4: last|<backupId>
         # $5: preBackup
 
-        if [ "$4" = "" ] 
-        then
+        if [ "$4" = "" ] ; then
             echo "Error: You must indicate the sub-action, the magazine's alias and the backup to recover"
             echo "Syntax: ./mojo.sh restore (code|files|db|all) <shortname> (last|<backupId>)"
             echo "sub-actions:"
@@ -1039,27 +1008,23 @@ case $1 in
             # Checking the backup file.
             bckType=$2
             if [ $2 == "files" ] || [ $2 == "all" ] ; then bckType="code" ; fi
-            if [ $3 != "last" ] && [ ! -r "$PATHBACKUP/all/$3/$4-$bckType.tgz" ] 
-            then
+            if [ $3 != "last" ] && [ ! -r "$PATHBACKUP/all/$3/$4-$bckType.tgz" ] ; then
                 echo "Unable to read the Backup file: $PATHBACKUP/all/$3/$4-$bckType.tgz"
                 exit 0
             fi
 
             # Is pre-backup required?
-            if [ $# -eq 5 ] && [[ $5 == "true" || $5 == 1 ]]
-            then
+            if [ $# -eq 5 ] && [[ $5 == "true" || $5 == 1 ]] ; then
                 # Notice this backup it's for additional safty, and don't make sense to be a checkpoint:
                 ./mojo.sh backup $2 $3 false
             fi
 
             case $2 in
                 code)
-					if [ -r "$PATHWEB/ojs-$3" ]
-					then
+					if [ -r "$PATHWEB/ojs-$3" ] ; then
 						confirm "CODE folder ojs-$3 exists. Do you want to delete it before restore? [y/N]"
 						delete="$?"
-				        if [ $delete == 1 ]
-						then 
+				        if [ $delete == 1 ] ; then
 							rm -Rf $PATHWEB/ojs-$3
 							echo "Former code folder was REMOVED."
 							confirm "Do you want to restore your backup now? [y/N]" && exit 0
@@ -1078,15 +1043,13 @@ case $1 in
 					echo "CODE was RESTORED from backup: $4"
                 ;;
                 data)
-					if [ -r "$PATHDATA/$3" ]
-					then
+					if [ -r "$PATHDATA/$3" ] ; then
 						# confirm "DATA folder $3 exists. Do you want to delete it before restore? [y/N]"
 						# delete="$?"
 				        # if [ $delete == 1 ]
 						confirm "DATA folder $3 exists. Do you want to delete it before restore? [y/N]"
 						delete="$?"
-				        if [ $delete == 1 ]
-						then 
+				        if [ $delete == 1 ] ; then
 							rm -Rf $PATHDATA/$3
 							echo "Former data folder was REMOVED."
 							confirm "Do you want to restore your backup now? [y/N]" && exit 0
@@ -1167,9 +1130,7 @@ case $1 in
         # bck=0
 
         # Checking number of params:
-        if  [ $# -ge 3 ] && [ $# -le 4  ]
-        then
-
+        if  [ $# -ge 3 ] && [ $# -le 4  ] ; then
           # Checking the backup file.
           # if [ ! -r "$3" ] && [ $3 != "last" ]
           # then
@@ -1178,10 +1139,8 @@ case $1 in
           # fi
 
           # Is pre-backup required?
-          if [ $# -eq 4 ]
-          then
-            if [ $4 == "true" ] || [ $4 == 1 ]
-            then
+          if [ $# -eq 4 ] ; then
+            if [ $4 == "true" ] || [ $4 == 1 ] ; then
               # Backup is required BEFORE restoring.
               # bck=1
               ./mojo.sh backup code $2
@@ -1194,8 +1153,7 @@ case $1 in
           exit 0
         fi
 
-        if [ -r "$PATHWEB/ojs-$2" ]
-        then
+        if [ -r "$PATHWEB/ojs-$2" ] ; then
             confirm "Folder ojs-$2 exists. Do you want to delete it before restore? " && echo "rm -Rf $PATHWEB/ojs-$2"
             confirm "Do you want to restore your backup over the existing folder? " && echo "tar xvzf $3 $PATHWEB" && echo "Backup RESTORED!!"
         else
@@ -1213,8 +1171,7 @@ case $1 in
         # ToDo: Error checking.
         # ToDo: Verbose
 
-        if [ "$2" = "" ] || [ "$3" = "" ] 
-        then
+        if [ "$2" = "" ] || [ "$3" = "" ] ; then
             echo "Error: You must indicate the magazine's alias and a TGZ file path"
             echo "Syntax: ./mojo.sh restoredb <dbName> [last | </path/to/dbDump.tgz>]"
             exit 0
@@ -1223,8 +1180,7 @@ case $1 in
             mkdir -p $PATHTMP            
             pathDump=$3
 
-            if [ "$3" = "last" ]
-            then
+            if [ "$3" = "last" ] ; then
                 pathDump=$PATHBACKUP/all/$2/last-db.tgz
             fi
 
@@ -1262,8 +1218,7 @@ case $1 in
     htaccess)
         #ToDo: Silent mode.
 
-        if [ "$2" != "" ]
-        then
+        if [ "$2" != "" ] ; then
             sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/htaccessMagazine.base" > $PATHWEB/ojs-$2/htaccess.chunk
             if [ $DEBUG == true ] ; then echo "--> Htaccess: Created templated chunk file for magazine: $2" ; fi
         else
@@ -1290,8 +1245,7 @@ case $1 in
     crontab)
         #ToDo: Silent mode.
 
-        if [ "$2" != "" ]
-        then
+        if [ "$2" != "" ] ; then
             sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/crontabMagazine.base" > $PATHWEB/ojs-$2/cron.chunk
             if [ $DEBUG == true ] ; then echo "--> Crontab: Created chunk file for magazine: $2" ; fi
         else
@@ -1313,10 +1267,8 @@ case $1 in
     r-links)
         #ToDo: Ask for confirmation.
 
-        if [ "$2" != "" ]
-        then
-            if [ "$3" != "" ]
-            then
+        if [ "$2" != "" ] ; then
+            if [ "$3" != "" ] ; then
                 # Links to "current" version
                 # Building the SHARED folders (same files between ALL OJS instalations):
                 SHARED="dbscripts help js locale plugins styles classes controllers docs lib pages rt templates tools"
@@ -1351,10 +1303,8 @@ case $1 in
     link2fold)
         #ToDo: Ask for confirmation.
 
-        if [ "$2" != "" ]
-        then
-            if [ "$3" != "" ]
-            then
+        if [ "$2" != "" ] ; then
+            if [ "$3" != "" ] ; then
                 rm "$PATHWEB/ojs-$2/$3"
                 cp "$PATHMOTOR/$3" "$PATHWEB/ojs-$2/$3" -a
                 echo "--> link2fold: Folder $3 is not a link any more in magazine $2"
@@ -1371,10 +1321,8 @@ case $1 in
     ;;
 
     setdomain)
-        if [ "$2" != "" ]
-        then
-            if [ "$2" == "reset" ]
-            then
+        if [ "$2" != "" ] ; then
+            if [ "$2" == "reset" ] ; then
                 # Resets the magazine's config file.
                 sed -e "s/%revistaTag%/$3/g" "$PATHBASE/source/templates/config.inc.php.base" > $PATHWEB/ojs-$3/config.inc.php
                 sed -i "s!%pathData%!$PATHDATA!g" "$PATHWEB/ojs-$3/config.inc.php"
@@ -1405,8 +1353,7 @@ case $1 in
     ;;
 
     cleancache|cc)
-        if [ "$2" != "" ]
-        then
+        if [ "$2" != "" ] ; then
           # DEBUG: echo "Cache folder: $PATHBASE/htdocs/ojs-$2/cache/"
           # find "$PATHBASE/htdocs/ojs-$2/cache/" -type f
 
@@ -1424,8 +1371,7 @@ case $1 in
 
         #DEBUG: showParams "$@"
 
-        if [ "$pAction" = "" ] || [ "$pSubAction" = "" ] 
-        then
+        if [ "$pAction" = "" ] || [ "$pSubAction" = "" ] ; then
             echo "Error: You must indicate the magazine's alias, the operation and the sub-action:"
             echo "Syntax:  ./mojo.sh sethome <shortname> <sub-action> "
         	echo "Sub-actions:"
@@ -1441,8 +1387,7 @@ case $1 in
 					echo "Magazine $pMagazine is now OPEN."
 				;;
 				lock)
-                    if [ "$pMail" = "" ]
-                    then
+                    if [ "$pMail" = "" ] ; then
                         echo "Error: You must indicate a mail of contact"
                         echo "Syntax:  ./mojo.sh sethome <shortname> lock <mailOfContact>"
                     else
@@ -1463,8 +1408,7 @@ case $1 in
     ;;
 
     tools|t)
-        if [ "$2" = "" ] || [ "$3" = "" ] 
-        then
+        if [ "$2" = "" ] || [ "$3" = "" ] ; then
             echo "Error: You must indicate the magazine's alias and the tool you call"
             echo "Syntax:  ./mojo.sh tools <shortname> <pkp-tool> "
             echo "Example: ./mojo.sh tools athenea upgrade.php check"

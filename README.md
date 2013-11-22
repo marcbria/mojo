@@ -7,6 +7,10 @@ installations and "rule them all".
 IMPORTANT: Right now (OJS 2.3.6) two minor changes are required for RESTFUL urls. More info about those changes: 
 - http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=7578&start=15#p32090
 - http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=7578&start=15#p32525
+(This is not required any more in OJS 2.3.8)
+
+More information:
+http://pkp.sfu.ca/wiki/index.php?title=Installation:_Multiple_OJS_%26_mOJO
 
 Installation
 ------------
@@ -16,10 +20,10 @@ Installation
     $ sudo useradd ojs -G sudo -m -U -d /home/ojs -p myPassword
 ```
 
-2. Setup your apache:
+2. Setup your Apache:
 ```bash
     $ cd ~
-    $ cp /home/ojs/source/templates/ojs /etc/apache/sites-avaliable
+    $ cp /home/ojs/source/templates/virtualHost.base /etc/apache/sites-avaliable/ojs
     $ vim /etc/apache/sites-avaliable/ojs;          # Replace magazine.localhost.net with your domain or GOTO 8.
     $ ln /etc/apache/sites-enabled/ojs /etc/apache/sites-avaliable/ojs
     $ /etc/init.d/apache restart  
@@ -31,6 +35,7 @@ Installation
     $ git clone https://github.com/marcbria/mojo.git
     $ mv mojo/* .
     $ mv mojo/.* .
+    $ mkdir webdata htaccess
 ```
 
 4. Setup your templates. See source/templates
@@ -44,19 +49,25 @@ Installation
     $ vim /home/ojs/scripts/mojo.sh
 ```
 
-6. Create your first magazine
+6. Add mOJO to your /usr/bin
+```bash
+	$ ln -s /home/ojs/scripts/mojo.sh /usr/bin/mojo
+```
+
+7. Test mOJO:
+```bash
+	$ mojo
+```
+If you get mojo's help it means the script is working.
+
+8. Create your first magazine
 ```bash
     $ cd scripts
-    $ sudo ./mojo.sh createall myojs
-    $ GOTO 6 :-P
+    $ sudo mojo create all myojs
 ```
+GOTO Step 8 :-P
 
-7. More info about the script
-```bash
-    $ sudo ./mojo.sh help
-```
-
-8. (optional) Setup your network with a fake domain: Add "magazine.localhost.net" to your /etc/hosts
+9. (optional) Setup your network with a fake domain: Add "magazine.localhost.net" to your /etc/hosts
 ```bash
     $ vim /etc/hosts
 ```
@@ -64,7 +75,7 @@ Installation
 Known bugs
 ----------
 
-- Unable to login if your OJS code is not "patched".
+- Unable to login if your OJS code is not "patched" (fixed if OJS > 2.3.8)
 - Permissions need to be reviewed (sudo not mandatory, avoid overwriting OJS ones...)
 - Better parameter checking.
 
@@ -75,9 +86,9 @@ ToDo
 - [x] Backup&Restore commands: Self explainatory.
 - [x] CreateDB command: To generate a DB model.
 - [x] Speedup "htaccess" command.
-- [ ] Request PKP a few minor changes in SessionManager class, bootstrap and config to suport multiOJS "out of the box".
-- [ ] Ask for confirmation in potentially harmful operations.
-- [ ] Hot backup with mysqlhotdump (optional)
+- [x] Request PKP a few minor changes in SessionManager class, bootstrap and config to suport multiOJS "out of the box".
+- [x] Ask for confirmation in potentially harmful operations.
+- [ ] Hot backup with mysqlhotdump (under discussion)
 - [ ] Info: With versions, paths, plugins and other OJS basic info.
 - [ ] Update: To update OJS DB&code (based on /tools)
 - [ ] ReplaceVar command: To gloably change one OJS variable.
@@ -87,7 +98,7 @@ ToDo
 - [ ] Select command: To run comands against a set of magazines.
 - [ ] Give feedback (Verbose, progressbar...) for "slow" operations.
 - [ ] Silent option for secondary commands.
-- [ ] Migration from bash to PHP (as far as OJS is PHP).
+- [ ] Migration from bash to PHP as far as OJS is PHP (under discussion).
 - [ ] ...
 
 Want to help?
@@ -98,6 +109,10 @@ Improve the code, test it or just give us feedback with your ideas.
 Follow the history of this script in the following thread:
 
 http://pkp.sfu.ca/support/forum/viewtopic.php?f=8&t=7578&p=31475#p31475
+
+More information:
+
+http://pkp.sfu.ca/wiki/index.php?title=Installation:_Multiple_OJS_%26_mOJO
 
 Thanks to [PKP](http://pkp.sfu.ca) and [Projecte Ictineo](http://projecteictineo.com) for the feedback, support and work to keep this project up. 
 

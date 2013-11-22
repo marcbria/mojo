@@ -44,3 +44,8 @@ Thumbs.db
 # Mojo's specifics #
 ####################
 backup/*
+webdata/*
+htdocs/*
+# !webdata/base
+# !htdocs/base
+

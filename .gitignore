@@ -49,3 +49,6 @@ htdocs/*
 # !webdata/base
 # !htdocs/base
 
+# Git Scripts #
+###############
+pushGithub.sh

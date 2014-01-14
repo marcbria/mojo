@@ -40,7 +40,7 @@ base_url = "http://%domainName%"
 registry_dir = %pathData%/%revistaTag%/registry
 
 ; MBR: Session cookie name
-session_cookie_name = OJSSID-%revistaTag%
+session_cookie_name = OJSSID-Alex-%revistaTag%
 
 ; MBR: Patch to allow multiple OJS sites with RESTful URLs
 session_cookie_path = /
@@ -114,7 +114,7 @@ citation_checking_max_processes = 3
 driver = mysql
 host = localhost
 username = root
-password = "myPassword"
+password = "1c-t1-r00t-9FBE"
 name = ojs_%revistaTag%
 
 ; Enable persistent connections

@@ -30,7 +30,7 @@
 installed = On
 
 ; MBR: The canonical URL to the OJS installation (excluding the trailing slash)
-base_url = "http://magazine.localhost.net/ojs-%revistaTag%"
+base_url = "http://alexandria.com/ojs-%revistaTag%"
 
 ; Path to the registry directory (containing various settings files)
 ; Although the files in this directory generally do not contain any
@@ -40,7 +40,7 @@ base_url = "http://magazine.localhost.net/ojs-%revistaTag%"
 registry_dir = %pathData%/%revistaTag%/registry
 
 ; MBR: Session cookie name
-session_cookie_name = OJSSID-%revistaTag%
+session_cookie_name = OJSSID-Alex-%revistaTag%
 
 ; MBR: Patch to allow multiple OJS sites with RESTful URLs
 session_cookie_path = /
@@ -85,8 +85,8 @@ allow_url_fopen = Off
 ; base_url[myJournal] = http://www.myUrl.com/myJournal
 ; base_url[myOtherJournal] = http://myOtherJournal.myUrl.com
 ; MBR:
-base_url[index] = http://magazine.localhost.net/ojs-%revistaTag%
-base_url[%revistaTag%] = http://magazine.localhost.net/%revistaTag%
+base_url[index] = http://alexandria.com/ojs-%revistaTag%
+base_url[%revistaTag%] = http://alexandria.com/%revistaTag%
 
 ; Generate RESTful URLs using mod_rewrite.  This requires the
 ; rewrite directive to be enabled in your .htaccess or httpd.conf.
@@ -114,7 +114,7 @@ citation_checking_max_processes = 3
 driver = mysql
 host = localhost
 username = root
-password = "myPassword"
+password = "1c-t1-r00t-9FBE"
 name = ojs_%revistaTag%
 
 ; Enable persistent connections

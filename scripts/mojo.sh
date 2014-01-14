@@ -133,14 +133,21 @@ function getMyPwd() {
     	. .secret
     else
 	    # If not defined, asks for passwd:
-	    if [ ! $mysqlPwd ] ; then
-	      read -s -p "Enter MYSQL root password: " mysqlPwd
-
-	      while ! mysql -u root -p$mysqlPwd  -e ";" ; do
-	          read -s -p "Can't connect, please retry: " mysqlPwd
-	          # echo "Trying with: $mysqlPwd" >> /home/ojs/scripts/pwd.log
-	      done
-	    fi
+	    if [ ! $mysqlUsr ] ; then
+	      read -s -p "Enter MYSQL user: " mysqlUsr
+        echo -e
+      fi
+      if [ ! $mysqlPwd ] ; then
+	      read -s -p "Enter MYSQL password: " mysqlPwd
+        echo -e
+      fi
+      while ! mysql -u $mysqlUsr -p$mysqlPwd  -e ";" ; do
+          read -s -p "Can't connect, please retry username: " mysqlUsr
+          echo -e
+          read -s -p "Can't connect, please retry password: " mysqlPwd
+          echo -e
+          # echo "Trying with: $mysqlPwd" >> /home/ojs/scripts/pwd.log
+      done
 	    # echo $mysqlPwd
     fi
 }

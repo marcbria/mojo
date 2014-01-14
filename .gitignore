@@ -49,6 +49,8 @@ webdata/*
 htdocs/*
 # !webdata/base
 # !htdocs/base
+# Jorunal Services added
+source/*
 
 # Git Scripts #
 ###############

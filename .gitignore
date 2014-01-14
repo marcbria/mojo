@@ -51,6 +51,7 @@ htdocs/*
 # !htdocs/base
 # Jorunal Services added
 source/*
+scripts/config.mojo
 
 # Git Scripts #
 ###############

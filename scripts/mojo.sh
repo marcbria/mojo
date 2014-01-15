@@ -561,8 +561,11 @@ case $1 in
             # Creates the DB named "ojs_revistaTag"
             sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/createDB.sql" > $PATHTMP/$2-create.sql
 
+            # Create not replaced fill.sql file
+            cp "$PATHBASE/source/templates/$DBDUMP" $PATHTMP/$2-fill.sql
+            
             # Replaces REDI_REVISTA_TAG tag in the BASE dump:
-            sed -e "s/REDI_REVISTA_TAG/$2/g" "$PATHBASE/source/templates/$DBDUMP" > $PATHTMP/$2-fill.sql
+            sed -i "s/REDI_REVISTA_TAG/$2/g" $PATHTMP/$2-fill.sql
 
             # Replaces REDI_REVISTA_MAIL tag with the specified mail (REDI_REVISTA_MAIL):
             if [ $INTERACTIVE = "true" ] && [ -z $3 ] ; then

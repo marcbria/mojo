@@ -565,6 +565,9 @@ case $1 in
             sed -e "s/REDI_REVISTA_TAG/$2/g" "$PATHBASE/source/templates/$DBDUMP" > $PATHTMP/$2-fill.sql
 
             # Replaces REDI_REVISTA_MAIL tag with the specified mail (REDI_REVISTA_MAIL):
+            if [ $INTERACTIVE = "true" ] && [ -z $3 ] ; then
+              read -p "Editor's Mail: " $3
+            fi
             if [ "$3" ] ; then
             echo "----> Editor's Mail: $3"
                 sed -i "s/REDI_REVISTA_MAIL/$3/g" $PATHTMP/$2-fill.sql

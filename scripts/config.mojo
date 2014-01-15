@@ -44,4 +44,7 @@ DBDUMP="ojs_ojs243.sql"
 # Even more verbose
 DEBUG=false
 
+# Interactive mode true o false values allowed
+INTERACTIVE="true"
+
 

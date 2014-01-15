@@ -487,12 +487,20 @@ case $1 in
             folderExist "YES" "$PATHDATA/$2" "$message" && exit 0
 
             # Building the folder structure of the new magazine
-            cp -a "$PATHDATA/base/files" "$PATHDATA/$2"    # From the BASE model.
-            cp -a "$PATHDATA/base/registry" "$PATHDATA/$2"
+            if [ $NEWMODEL == true ] ; then 
+              # An independent model (clean version instead of base copy)
+              mkdir -p "$PATHDATA/$2/files"                             # Creates the data folder
+              mkdir -p "$PATHDATA/$2/registry"                          #   ... and registry.
+            else
+              if [ -n $BASEMODEL ] ; then
+                cp -a "$PATHDATA/$BASEMODEL/files" "$PATHDATA/$2"    # From the BASE model.
+                cp -a "$PATHDATA/$BASEMODEL/registry" "$PATHDATA/$2"
+              else
+                echo "ERROR: Base model dir name not set, check the config file"
+                exit 0
+              fi
+            fi
 
-            # Uncomment those 2 lines for an independent model (clean version instead of base copy)
-            # mkdir -p "$PATHDATA/$2/files"                             # Creates the data folder
-            # mkdir -p "$PATHDATA/$2/registry"                          #   ... and registry.
 
             mkdir -p "$PATHWEB/ojs-$2"                                  # Crates the web folder
 

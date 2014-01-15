@@ -16,6 +16,12 @@ PATHBACKUP=""
 # Base URL for the service (P.e: http://revistes.uab.cat)
 URLBASE=""
 
+# Create files from existing base instalation (true or false value)
+NEWMODEL=""
+
+# If NEWMODEL set to false set the dir name for the base instalation (P.e. base)
+BASEMODEL=""
+
 # Path of the temporal folder (Pe: /tmp/mojo)
 PATHTMP="/tmp/mojo"
 

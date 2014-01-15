@@ -14,11 +14,17 @@ PATHDATA="$PATHBASE/webdata"
 PATHBACKUP="$PATHBASE/backup"
 
 # Base URL for the service (P.e: http://revistes.uab.cat)
-URLBASE="http://revistes.uab.cat"
+URLBASE="http://journal-services.com"
 # URLBASE="http://magazine.localhost.net"
 
 # Path of the temporal folder (Pe: /tmp/mojo)
 PATHTMP="/tmp/mojo"
+
+# Create files from existing base instalation (true or false value)
+NEWMODEL="true"
+
+# If NEWMODEL set to false set the dir name for the base instalation (P.e. base)
+BASEMODEL=""
 
 # DB dump of the OJS model
 DBDUMP="dumpBaseNew.sql"

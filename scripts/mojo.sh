@@ -491,10 +491,12 @@ case $1 in
               # An independent model (clean version instead of base copy)
               mkdir -p "$PATHDATA/$2/files"                             # Creates the data folder
               mkdir -p "$PATHDATA/$2/registry"                          #   ... and registry.
+              mkdir -p "$PATHWEB/ojs-$2/public"                         # Some predefined public files (pe: logos, banners).
             else
               if [ -n $BASEMODEL ] ; then
                 cp -a "$PATHDATA/$BASEMODEL/files" "$PATHDATA/$2"    # From the BASE model.
                 cp -a "$PATHDATA/$BASEMODEL/registry" "$PATHDATA/$2"
+                cp -a "$PATHWEB/ojs-$BASEMODEL/public" "$PATHWEB/ojs-$2"          # Some predefined public files (pe: logos, banners).
               else
                 echo "ERROR: Base model dir name not set, check the config file"
                 exit 0
@@ -506,7 +508,6 @@ case $1 in
 
             cp -a "$PATHMOTOR/index.php" "$PATHWEB/ojs-$2/index.php"    # Comment: A symlink won't work.
 
-            cp -a "$PATHWEB/ojs-base/public" "$PATHWEB/ojs-$2"          # Some predefined public files (pe: logos, banners).
 
             # Building the structure for NON SHARED folders:
             mkdir -p "$PATHWEB/ojs-$2/cache/t_cache"

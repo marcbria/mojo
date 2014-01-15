@@ -27,7 +27,8 @@ NEWMODEL="true"
 BASEMODEL=""
 
 # DB dump of the OJS model
-DBDUMP="dumpBaseNew.sql"
+DBDUMP="ojs_ojs243.sql"
+#DBDUMP="dumpBaseNew.sql"
 
 # Build your own aternative bases:
 # PATHMOTOR="$PATHBASE/source/versions/ojs-2.4-redi-git-alec"

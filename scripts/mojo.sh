@@ -590,7 +590,14 @@ case $1 in
             getMyPwd
 
             /usr/bin/mysql -u $mysqlUsr -p$mysqlPwd < $PATHTMP/$2-create.sql
-            echo "Magazine's DB was created."
+            if grep -q "REDI_REVISTA_TAG" $PATHBASE/source/templates/$DBDUMP ; then
+              echo "Magazine's DB was created."
+            else
+              # If the base dump doesn't have the TAG the critical cells
+              # will be also replaced
+              echo "WARNING: TAG to replace not found, first journal path will be replaced for $2 "
+              /usr/bin/mysql -u $mysqlUsr -p$mysqlPwd -e "UPDATE ojs_$2.journals SET path = '$2' WHERE journals.journal_id = 1;"
+            fi
         fi
     ;;
 

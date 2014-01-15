@@ -1244,9 +1244,13 @@ case $1 in
             # for chunk in "$PATHBASE"/ojs-*"
             for chunk in $( find $PATHWEB -maxdepth 1 -type d -name 'ojs-*' )
             do
-                cat "$chunk/htaccess.chunk" >> $PATHWEB/.htaccess
-                # Uncomment to verbose:
-                # echo "Attached magazine: $chunk"
+                # check if file exists
+                # need to avoid error with non mojo instalations in same directory
+                if [ -e "$chunk/htaccess.chunk" ] ; then 
+                  cat "$chunk/htaccess.chunk" >> $PATHWEB/.htaccess
+                  # Uncomment to verbose:
+                  # echo "Attached magazine: $chunk"
+                fi
             done
 
             chown ojs:www-data $PATHWEB/.htaccess

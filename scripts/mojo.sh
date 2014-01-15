@@ -1274,7 +1274,9 @@ case $1 in
             # for chunk in "$PATHBASE"/ojs-*"
             for chunk in $( find $PATHWEB  -maxdepth 1 -type d -name 'ojs-*' )
             do
-                cat "$chunk/cron.chunk" >> $PATHBASE/cronMagazines.sh
+                if [ -e "$chunk/cron.chunk" ] ; then
+                  cat "$chunk/cron.chunk" >> $PATHBASE/cronMagazines.sh
+                fi
             done
 
             chown ojs:www-data $PATHBASE/cronMagazines.sh

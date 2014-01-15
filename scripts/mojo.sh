@@ -565,36 +565,59 @@ case $1 in
             cp "$PATHBASE/source/templates/$DBDUMP" $PATHTMP/$2-fill.sql
             
             # Replaces REDI_REVISTA_TAG tag in the BASE dump:
-            sed -i "s/REDI_REVISTA_TAG/$2/g" $PATHTMP/$2-fill.sql
+            if grep -q "REDI_REVISTA_TAG" $PATHBASE/source/templates/$DBDUMP ; then
+              sed -i "s/REDI_REVISTA_TAG/$2/g" $PATHTMP/$2-fill.sql
+            else
+              echo "WARNING: REVISTA_TAG to replace not found, first journal path will be replaced for $2 "
+              echo "UPDATE ojs_$2.journals SET path = '$2' WHERE journals.journal_id = 1;" >> $PATHTMP/$2-tag.sql
+            fi
 
             # Replaces REDI_REVISTA_MAIL tag with the specified mail (REDI_REVISTA_MAIL):
+            rev_mail=$3
             if [ $INTERACTIVE = "true" ] && [ -z $3 ] ; then
-              read -p "Editor's Mail: " $3
+              read -p "Editor's Mail: " rev_mail
             fi
-            if [ "$3" ] ; then
-            echo "----> Editor's Mail: $3"
-                sed -i "s/REDI_REVISTA_MAIL/$3/g" $PATHTMP/$2-fill.sql
+            if [ "$rev_mail" ] ; then
+            echo "----> Editor's Mail: $rev_mail"
+                if grep -q "REDI_REVISTA_MAIL" $PATHBASE/source/templates/$DBDUMP ; then
+                  sed -i "s/REDI_REVISTA_MAIL/$rev_mail/g" $PATHTMP/$2-fill.sql
+                else
+                  echo "WARNING: REVISTA_MAIL to replace not found, first journal mail will set as $rev_mail "
+                  echo "UPDATE ojs_$2.site_settings SET setting_value = '$rev_mail' WHERE site_settings.setting_name = 'contactEmail';" >> $PATHTMP/$2-tag.sql
+                  echo "UPDATE ojs_$2.users SET email = '$rev_mail' WHERE users.user_id = 1;" >> $PATHTMP/$2-tag.sql
+                fi
             fi
 
             # Replaces REDI_REVISTA_RESPONSABLE with the specified magazine's responsible name:
+            rev_name=$4
             if [ $INTERACTIVE = "true" ] && [ -z $4 ] ; then
-              read -p "Editor's Full Name: " $4
+              read -p "Editor's Full Name: " rev_name
             fi
-            if [ "$4" ] ; then
-                echo "----> Editor' Full Name: $4"
-                sed -i "s/REDI_REVISTA_RESPONSABLE/$4/g" $PATHTMP/$2-fill.sql
+            if [ "$rev_name" ] ; then
+                echo "----> Editor' Full Name: $rev_name"
+                sed -i "s/REDI_REVISTA_RESPONSABLE/$rev_name/g" $PATHTMP/$2-fill.sql
             fi
 
             # Replaces REDI_REVISTA_TITLE with the specified magazine's title:
+            rev_tit=$5
             if [ $INTERACTIVE = "true" ] && [ -z $5 ] ; then
-              read -p "Magazine's Title: " $5
+              read -p "Magazine's Title: " rev_tit
             fi
-            if [ "$5" ] ; then
-                echo "----> Magazine's Title: $5"
-                sed -i "s/REDI_REVISTA_TITLE/$5/g" $PATHTMP/$2-fill.sql
+            if [ "$rev_tit" ] ; then
+                echo "----> Magazine's Title: $rev_tit"
+                if grep -q "REDI_REVISTA_TITLE" $PATHBASE/source/templates/$DBDUMP ; then
+                  sed -i "s/REDI_REVISTA_TITLE/$rev_tit/g" $PATHTMP/$2-fill.sql
+                else
+                  echo "WARNING: REVISTA_TITLE to replace not found, first journal title will set as $rev_tit "
+                  echo "UPDATE ojs_$2.site_settings SET setting_value = '$rev_tit' WHERE site_settings.setting_name = 'title';" >> $PATHTMP/$2-tag.sql
+                  echo "UPDATE ojs_$2.journal_settings SET setting_value = '$rev_tit' WHERE journal_settings.journal_id = 1 AND journal_settings.setting_name = 'title';" >> $PATHTMP/$2-tag.sql
+                fi
             fi
 
             cat $PATHTMP/$2-fill.sql >> $PATHTMP/$2-create.sql
+            if [ -e $PATHTMP/$2-tag.sql ] ; then
+              cat $PATHTMP/$2-tag.sql >> $PATHTMP/$2-create.sql
+            fi
 
             # Get MySql root pwd:
             # mysqlPwd=$(getMyPwd)
@@ -602,14 +625,7 @@ case $1 in
             getMyPwd
 
             /usr/bin/mysql -u $mysqlUsr -p$mysqlPwd < $PATHTMP/$2-create.sql
-            if grep -q "REDI_REVISTA_TAG" $PATHBASE/source/templates/$DBDUMP ; then
-              echo "Magazine's DB was created."
-            else
-              # If the base dump doesn't have the TAG the critical cells
-              # will be also replaced
-              echo "WARNING: TAG to replace not found, first journal path will be replaced for $2 "
-              /usr/bin/mysql -u $mysqlUsr -p$mysqlPwd -e "UPDATE ojs_$2.journals SET path = '$2' WHERE journals.journal_id = 1;"
-            fi
+            echo "Magazine's DB was created."
         fi
     ;;
 

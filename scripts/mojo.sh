@@ -574,12 +574,18 @@ case $1 in
             fi
 
             # Replaces REDI_REVISTA_RESPONSABLE with the specified magazine's responsible name:
+            if [ $INTERACTIVE = "true" ] && [ -z $4 ] ; then
+              read -p "Editor's Full Name: " $4
+            fi
             if [ "$4" ] ; then
                 echo "----> Editor' Full Name: $4"
                 sed -i "s/REDI_REVISTA_RESPONSABLE/$4/g" $PATHTMP/$2-fill.sql
             fi
 
             # Replaces REDI_REVISTA_TITLE with the specified magazine's title:
+            if [ $INTERACTIVE = "true" ] && [ -z $5 ] ; then
+              read -p "Magazine's Title: " $5
+            fi
             if [ "$5" ] ; then
                 echo "----> Magazine's Title: $5"
                 sed -i "s/REDI_REVISTA_TITLE/$5/g" $PATHTMP/$2-fill.sql

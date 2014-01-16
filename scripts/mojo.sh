@@ -614,6 +614,18 @@ case $1 in
                 fi
             fi
 
+            # Replaces REDI_REVISTA_DESC with the specified magazine's title:
+            if [ $INTERACTIVE = "true" ] && [ -z $5 ] ; then
+              read -p "Magazine's Title: " rev_desc
+            fi
+            if [ "$rev_desc" ] ; then
+                echo "----> Magazine's Title: $rev_desc"
+                if grep -q "REDI_REVISTA_DESC" $PATHBASE/source/templates/$DBDUMP ; then
+                  sed -i "s/REDI_REVISTA_DESC/$rev_desc/g" $PATHTMP/$2-fill.sql
+                fi
+            fi
+
+
             cat $PATHTMP/$2-fill.sql >> $PATHTMP/$2-create.sql
             if [ -e $PATHTMP/$2-tag.sql ] ; then
               cat $PATHTMP/$2-tag.sql >> $PATHTMP/$2-create.sql

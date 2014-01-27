@@ -23,22 +23,23 @@ Installation
 ```
 <strong>Note:</strong> The user name could be other than "ojs" but then you will need to review the script to fit you username.
 
-2. Setup your Apache:
-```bash
-    $ cd ~
-    $ cp /home/ojs/source/templates/virtualHost.base /etc/apache/sites-avaliable/ojs
-    $ vim /etc/apache/sites-avaliable/ojs;          # Replace magazine.localhost.net with your domain or GOTO 8.
-    $ ln /etc/apache/sites-enabled/ojs /etc/apache/sites-avaliable/ojs
-    $ /etc/init.d/apache restart  
-```
-
-3. Set your multisite structure
+2. Set your multisite structure
 ```bash
     $ sudo login ojs
     $ git clone https://github.com/marcbria/mojo.git
     $ mv mojo/* .
     $ mv mojo/.* .
     $ mkdir webdata htaccess
+```
+
+3. Setup your Apache: (instructions for Debian-like distros)
+```bash
+    $ cd ~
+    $ sudo cp /home/ojs/source/templates/virtualHost.base /etc/apache/sites-avaliable/ojs
+    $ sudo vim /etc/apache/sites-avaliable/ojs;          # Replace magazine.localhost.net with your domain or GOTO 8.
+    $ sudo ln /etc/apache/sites-enabled/ojs /etc/apache/sites-avaliable/ojs
+    $ sudo chown root:www-data /etc/apache/sites-avaliable/ojs
+    $ sudo /etc/init.d/apache restart  
 ```
 
 4. Setup your templates. See source/templates

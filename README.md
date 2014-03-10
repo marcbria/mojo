@@ -85,18 +85,18 @@ Common issues
 -------------
 - Are permissions are not correcly set?
  - This usually fixes the issues, but you need to understand what you are doing (and review to fit to your needs and distro):
-```bash
+  ```bash
     $ cd /home/ojs
     $ chown ojs:www-data 
     $ chmod 774
-```
+  ```
 
 - "Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration"
  - Probably your Apache don't include the "modrewrite" module.
-```bash
+  ```bash
     $ sudo a2enmod rewrite
     $ service apache2 restart
-```
+  ```
 
 - "Database connection failed!"
  - Probably your script/mojo.config file don't include the right MySQL root password.
@@ -119,7 +119,7 @@ ToDo
 - [x] Request PKP a few minor changes in SessionManager class, bootstrap and config to suport multiOJS "out of the box".
 - [x] Ask for confirmation in potentially harmful operations.
 - [x] "Interactive mode": Ask for params when is required.
-- [x] "File based mode": Extracts arguments from a config file. 
+- [ ] "File based mode": Extracts arguments from a config file. 
 - [ ] Hot backup with mysqlhotdump (under discussion)
 - [ ] Info: With versions, paths, plugins and other OJS basic info.
 - [ ] Update: To update OJS DB&code (based on /tools)

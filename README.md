@@ -20,6 +20,7 @@ Installation
 1. Create a new "ojs" user:
 ```bash
     $ sudo useradd ojs -G sudo -m -U -d /home/ojs -p myPassword
+    $ sudo usermod -s /bin/bash ojs
 ```
 <strong>Note:</strong> The user name could be other than "ojs" but then you will need to review the script to fit you username.
 
@@ -30,16 +31,18 @@ Installation
     $ mv mojo/* .
     $ mv mojo/.* .
     $ mkdir webdata htaccess
+    $ rmdir mojo
 ```
 
 3. Setup your Apache: (instructions for Debian-like distros)
 ```bash
-    $ cd ~
-    $ sudo cp /home/ojs/source/templates/virtualHost.base /etc/apache/sites-avaliable/ojs
-    $ sudo vim /etc/apache/sites-avaliable/ojs;          # Replace magazine.localhost.net with your domain or GOTO 8.
-    $ sudo ln /etc/apache/sites-enabled/ojs /etc/apache/sites-avaliable/ojs
-    $ sudo chown root:www-data /etc/apache/sites-avaliable/ojs
-    $ sudo /etc/init.d/apache restart  
+    $ exit
+    $ sudo -s
+    $ cp /home/ojs/source/templates/virtualHost.base /etc/apache2/sites-available/ojs
+    $ vim /etc/apache2/sites-available/ojs;          # Replace magazine.localhost.net with your domain or GOTO 8.
+    $ ln /etc/apache2/sites-enabled/ojs /etc/apache2/sites-available/ojs
+    $ chown root:www-data /etc/apache/sites-available/ojs
+    $ /etc/init.d/apache restart
 ```
 
 4. Setup your templates. See source/templates
@@ -62,6 +65,7 @@ Installation
 
 7. Test mOJO:
 ```bash
+    $ sudo login ojs
     $ mojo
 ```
 If you get mojo's help it means the script is working.
@@ -74,7 +78,7 @@ GOTO Step 8 :-P
 
 9. (optional) Setup your network with a fake domain: Add "magazine.localhost.net" to your /etc/hosts
 ```bash
-    $ vim /etc/hosts
+    $ sudo vim /etc/hosts
 ```
 
 Common issues

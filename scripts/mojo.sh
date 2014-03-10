@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#===============================================================================
+# =================================================================================================
 #          FILE:    mojo.sh
 #
 #         USAGE:    ./mojo.sh <action> [<subaction>] <shortname> [<other>]
@@ -9,57 +9,56 @@
 #                   independent OJS with one preconfigured magazine inside.
 #
 #    PARAMETERS:
-#
-#         <action>: help (h):           Script syntax.
-#                   list (l):           List all the magazines of the service.
-#                      |_ magazines (m):Lists the name of all the magazines.
-#                      |_ count (c):    Returns the total number of magazines.
-#                   create:             Create files, folder structure and/of db.
-#                      |_ files (cf):   Create the folder structure (code & data).
-#                      |_ db (cdb):     Create the DB of an ojs-magazine from BASE template.
-#                      |_ all (call):   Create a full ojs-magazine from the BASE template.
-#                   d-createfiles (cf):   (deprecated) Create the folder structure of an ojs-magazine.
-#                   d-createdb (cdb):     (deprecated) Create the DB of an ojs-magazine from BASE template.
-#                   d-createall (call):   (deprecated) Create a full ojs-magazine from the BASE template.
-#                   delete:             Delete the folder structure and/or the DB of an ojs-magazine.
-#                      |_ files:        Delete the code & of an ojs-magazine (first backups)
-#                      |_ db:           Delete the DB of an specific ojs-magazine.
-#                      |_ all:          COMPLETE remove of a ojs-magazine (scripts, files and DB)
-#                   deletefiles:          Delete the code & of an ojs-magazine (first backups)
-#                   deletedb:             Delete the DB of an specific ojs-magazine.
-#                   deleteall:            COMPLETE removes of a ojs-magazine (scripts, files and DB)
-#                   backup (bck):       Backup the files (code or-and data) and DB of an specific ojs-magazine.
-#                      |_ files:        Backup code & webdata of an specific ojs-magazine.
-#                      |_ db:           Backup the DB of an specific ojs-magazine.
-#                      |_ all:          COMPLETE backup specific ojs-magazine (scripts, files and DB)
-#                      |_ code:         Backup code of an specific ojs-magazine.
-#                      |_ data:         Backup webdata of an specific ojs-magazine.
-#                   backupdb (bdb):       Backup DB of an specific ojs-magazine.
-#                   backupall (ball):     COMPLETE backup of a magazine (scripts, files and DB)
-#                   restore:            Recover the files (code or-and data) of a formely backup for ojs-magazine.
-#                      |_ files:        Recover code & webdata of an specific ojs-magazine.
-#                      |_ db:           Recover the DB of an specific ojs-magazine.
-#                      |_ all:          COMPLETE recovery of an specific ojs-magazine (scripts, files and DB)
-#                      |_ code:         Recover code of an specific ojs-magazine.
-#                      |_ data:         Recover webdata of an specific ojs-magazine.
-#                   d-restorecode:        (deprecated) Recovers the code of a formely backup for ojs-magazine.
-#                   d-restoredb:          (deprecated) Recover a formely DB backup for ojs-magazine.
-#                   filldb:               (dev) Executes an sql script against the selected ojs-magazine.
-#                   htaccess:           Recreate the global htaccess file.
-#                   crontab:            Recreate the global crontab file.
-#                   r-links:            Recover symlinks for an specific site.
-#                   link2fold:          Replace a symlink with the folder's content. BE CAREFULL!!
-#                   setdomain:          Recreate config files to let the magazine respond under a domain.
-#                   cleancache (cc):    Clean OJS Cache.
-#                   sethome:            Replace index.php with an alternative page.
-#                      |_ open:         Opens the magazine (revcvers OJS original index.php).
-#                      |_ lock:         The magazine is Locked.
-#                      |_ work:         The magazine is in Mantainance.
-#                   tools (t):          Call pkp-tools (see your OJS /tools folder)
-#                   upgrade:            (ToDo) Replaces [current] links to [new] version and upgrade ojs-DB.
-#    <shortname>:   Short name (aka. alias) of the magazine to be operated.
-#                   The tag ALL is reserved to operate against every magazine
-#                   of the system (Not implemented yet).
+#      <action>: help (h):           Script syntax.
+#                list (l):           List all the magazines of the service.
+#                   |_ magazines (m):Lists all the name of all the magazines.
+#                   |_ count (c):    Returns the total number of magazines.
+#                create:             Create the folder structure of an ojs-magazine.
+#                   |_ files (cf):   Create the folder structure of an ojs-magazine.
+#                   |_ db (cdb):     Create the DB of an ojs-magazine from BASE template.
+#                   |_ all (call):   Create a full ojs-magazine from the BASE template.
+##                  d-createfiles (cf): (deprecated) Create the folder structure of an ojs-magazine.
+##                  d-createdb (cdb):   (deprecated) Create the DB of an ojs-magazine from BASE template.
+##                  d-createall (call): (deprecated) Create a full ojs-magazine from the BASE template.
+#                delete:             Delete the folder structure and/or the DB of an ojs-magazine.
+#                   |_ files:        Delete the code & of an ojs-magazine (first backups)
+#                   |_ db:           Delete the DB of an specific ojs-magazine.
+#                   |_ all:          COMPLETE remove of a ojs-magazine (scripts, files and DB)
+##                  d-deletefiles:      (deprecated) Delete the code & of an ojs-magazine (first backups)
+##                  d-deletedb:         (deprecated) Delete the DB of an specific ojs-magazine.
+##                  d-deleteall:        (deprecated) COMPLETE remove of a ojs-magazine (scripts, files and DB)
+#                backup (bck):       Backup the files (code or-and data) and DB of an specific ojs-magazine.
+#                   |_ files:        Backup code & webdata of an specific ojs-magazine.
+#                   |_ db:           Backup the DB of an specific ojs-magazine.
+#                   |_ all:          COMPLETE backup specific ojs-magazine (scripts, files and DB)
+#                   |_ code:         Backup code of an specific ojs-magazine.
+#                   |_ data:         Backup webdata of an specific ojs-magazine.
+#                   d-backupdb (bdb):   (deprecated) Backup DB of an specific ojs-magazine.
+#                   d-backupall (ball): (deprecated) COMPLETE backup of a magazine (scripts, files and DB)
+#                restore:            Recover the files (code or-and data) of a formely backup for ojs-magazine.
+#                   |_ files:        Recover code & webdata of an specific ojs-magazine.
+#                   |_ db:           Recover the DB of an specific ojs-magazine.
+#                   |_ all:          COMPLETE recovery of an specific ojs-magazine (scripts, files and DB)
+#                   |_ code:         Recover code of an specific ojs-magazine.
+#                   |_ data:         Recover webdata of an specific ojs-magazine.
+##                  d-restorecode:      (deprecated) Recovers the code of a formely backup for ojs-magazine.
+##                  d-restoredb:        (deprecated) Recover a formely DB backup for ojs-magazine.
+##                  filldb:             (ToDo) Executes an sql script against the selected ojs-magazine.
+#                htaccess:           Recreate the global htaccess file.
+#                crontab:            Recreate the global crontab file.
+#                r-links:            Recover symlinks for an specific site.
+#                link2fold:          Replace a symlink with the folder's content. BE CAREFULL!!
+#                setdomain:          Recreate config files to let the magazine respond under a domain.
+#                cleancache (cc):    Clean OJS Cache.
+#                sethome:            Replace index.php with an alternative page.
+#                   |_ open:         Opens the magazine (revcvers OJS original index.php).
+#                   |_ lock:         The magazine is Locked.
+#                   |_ work:         The magazine is in Mantainance.
+#                tools (t):          Call pkp-tools (see your OJS /tools folder)
+##                  upgrade:            (ToDo) Replaces [current] links to [new] version and upgrade ojs-DB.
+# <shortname>:   Short name (aka. alias) of the magazine to be operated.
+#                ToDO: The tag ALL is reserved to operate against every magazine
+#                      of the system (Not implemented yet).
 #
 #       OPTIONS:  ---
 #  REQUIREMENTS:  sed, mysql
@@ -71,59 +70,46 @@
 #       COMPANY:  UAB - SdP - ReDi
 #       LICENSE:  GPL 3
 #       CREATED:  06/04/11 16:53:15 CEST
-#       UPDATED:  21/10/13 10:32:33 CEST
-#      REVISION:  0.28
+#       UPDATED:  10/03/14 18:32:33 PDT
+#      REVISION:  0.30
 #===============================================================================
 
-# SCRIPT CONFIGURATION CONSTANTS TAKEN FROM config.mojo=========================
-# Taken variables are:
-# Path of the service root (P.e: /home/ojs)
-# PATHBASE="/home/ojs"
-#
-# Path of the folder with the current version (P.e: $URLBASE/source/versions/current)
-# PATHMOTOR="$PATHBASE/source/versions/current"
-#
-# Path of the web root (P.e: $PATHBASE/htdocs)
-# PATHWEB="$PATHBASE/htdocs"
-#
-# Path of the storage folder (P.e: $PATHBASE/webdata)
-# PATHDATA="$PATHBASE/webdata"
-#
-# Path of the backup folder (P.e: $PATHBASE/backup)
-# PATHBACKUP="$PATHBASE/backup"
-#
-# Base URL for the service (P.e: http://revistes.uab.cat)
-# URLBASE="http://revistes.uab.cat"
-# Path of the temporal folder (Pe: /tmp/mojo)
-# PATHTMP="/tmp/mojo"
-#
-# DB dump of the OJS model
-# DBDUMP="dumpBaseNew.sql"
-#
-# Even more verbose
-# DEBUG=false
+# SCRIPT CONFIGURATION: See config.mojo
 
-# LOAD CONFIGURATION FILE
-#
-# Get current path
+# Elevates the permissions of the script if the operation requieres it
+case $1 in
+    help|h|list|l|clearcache|cc)
+        # Those operations are not harmfull and/or don't require root.
+    ;;
+    *)
+        [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
+    ;;
+esac
+
+# Get current path (to come back after mOJO)
 SCRIPT="`readlink -e $0`"
 SCRIPTPATH="`dirname $SCRIPT`"
+
+
+# LOAD CONFIGURATION FILE ======================================================
 # Load file if exists
 if [ -f $SCRIPTPATH/config.mojo ] ; then
   . $SCRIPTPATH/config.mojo
 else
-  echo "ERROR: Configuration file config.mojo doesn't exists"
+  echo "ERROR: Configuration file \"config.mojo\" does NOT exist"
+  echo "Modify a copy of the \"config.mojo.TEMPLATE\" example in you /scripts folder"
   exit 
 fi
 
 
 #===============================================================================
 
+# Time is useful for logs and backups:
 NOW="$(date +"%Y%m%d-%M%S")"
 
 # Don't change this variables: Place your MySql usr/pwd in .secrets file
-mysqlUsr=""
-mysqlPwd=""
+mysqlUsr="$MOJO_MYSQL_USER"
+mysqlPwd="$MOJO_MYSQL_PWD"
 
 # FUNCTIONS: ===================================================================
 
@@ -339,17 +325,17 @@ case $1 in
         echo "                     |_ files:        Delete the code & of an ojs-magazine (first backups)"
         echo "                     |_ db:           Delete the DB of an specific ojs-magazine."
         echo "                     |_ all:          COMPLETE remove of a ojs-magazine (scripts, files and DB)"
-        # echo "                  deletefiles:          Delete the code & of an ojs-magazine (first backups)"
-        # echo "                  deletedb:             Delete the DB of an specific ojs-magazine."
-        # echo "                  deleteall:            COMPLETE removes of a ojs-magazine (scripts, files and DB)"
+        # echo "                  d-deletefiles:          Delete the code & of an ojs-magazine (first backups)"
+        # echo "                  d-deletedb:             Delete the DB of an specific ojs-magazine."
+        # echo "                  d-deleteall:            COMPLETE removes of a ojs-magazine (scripts, files and DB)"
         echo "                  backup (bck):       Backup the files (code or-and data) and DB of an specific ojs-magazine."
         echo "                     |_ files:        Backup code & webdata of an specific ojs-magazine."
         echo "                     |_ db:           Backup the DB of an specific ojs-magazine."
         echo "                     |_ all:          COMPLETE backup specific ojs-magazine (scripts, files and DB)"
         echo "                     |_ code:         Backup code of an specific ojs-magazine."
         echo "                     |_ data:         Backup webdata of an specific ojs-magazine."
-        # echo "                  backupdb (bdb):       Backup DB of an specific ojs-magazine."
-        # echo "                  backupall (ball):     COMPLETE backup of a magazine (scripts, files and DB)"
+        # echo "                  d-backupdb (bdb):       Backup DB of an specific ojs-magazine."
+        # echo "                  d-backupall (ball):     COMPLETE backup of a magazine (scripts, files and DB)"
         echo "                  restore:            Recover the files (code or-and data) of a formely backup for ojs-magazine."
         echo "                     |_ files:        Recover code & webdata of an specific ojs-magazine."
         echo "                     |_ db:           Recover the DB of an specific ojs-magazine."
@@ -506,7 +492,7 @@ case $1 in
 
             mkdir -p "$PATHWEB/ojs-$2"                                  # Crates the web folder
 
-            cp -a "$PATHMOTOR/index.php" "$PATHWEB/ojs-$2/index.php"    # Comment: A symlink won't work.
+            cp -a "$PATHENGINE/index.php" "$PATHWEB/ojs-$2/index.php"    # Comment: A symlink won't work.
 
 
             # Building the structure for NON SHARED folders:
@@ -520,11 +506,11 @@ case $1 in
 
             for x in ${SHARED}
             do
-                ln -s -f "$PATHMOTOR/${x}" "$PATHWEB/ojs-$2"
+                ln -s -f "$PATHENGINE/${x}" "$PATHWEB/ojs-$2"
             done
 
             # Generates the magazine's config file.
-            sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/config.inc.php.base" > $PATHWEB/ojs-$2/config.inc.php
+            sed -e "s/%MOJO_JOURNAL_TAG%/$2/g" "$PATHBASE/source/templates/config.inc.php.base" > $PATHWEB/ojs-$2/config.inc.php
             sed -i "s!%pathData%!$PATHDATA!g" "$PATHWEB/ojs-$2/config.inc.php"
 
             # Setting permissions:
@@ -558,55 +544,60 @@ case $1 in
 
             mkdir -p "$PATHTMP"
 
-            # Creates the DB named "ojs_revistaTag"
-            sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/createDB.sql" > $PATHTMP/$2-create.sql
+            # Creates the DB named "ojs_MOJO_JOURNAL_TAG"
+            sed -e "s/%MOJO_JOURNAL_TAG%/$2/g" "$PATHBASE/source/templates/createDB.sql" > $PATHTMP/$2-create.sql
+            sed -i "s/%MOJO_MYSQL_USER%/$2/g" $PATHTMP/$2-create.sql
 
             # Create not replaced fill.sql file
             cp "$PATHBASE/source/templates/$DBDUMP" $PATHTMP/$2-fill.sql
             
-            # Replaces REDI_REVISTA_TAG tag in the BASE dump:
-            if grep -q "REDI_REVISTA_TAG" $PATHBASE/source/templates/$DBDUMP ; then
-              sed -i "s/REDI_REVISTA_TAG/$2/g" $PATHTMP/$2-fill.sql
+            # Replaces MOJO_JOURNAL_TAG tag in the BASE dump:
+            if grep -q "MOJO_JOURNAL_TAG" $PATHBASE/source/templates/$DBDUMP ; then
+              sed -i "s/MOJO_JOURNAL_TAG/$2/g" $PATHTMP/$2-fill.sql
             else
-              echo "WARNING: REVISTA_TAG to replace not found, first journal path will be replaced for $2 "
+              echo "WARNING: MOJO_JOURNAL_TAG to replace not found, first journal path will be replaced for $2 "
               echo "UPDATE ojs_$2.journals SET path = '$2' WHERE journals.journal_id = 1;" >> $PATHTMP/$2-tag.sql
             fi
 
-            # Replaces REDI_REVISTA_MAIL tag with the specified mail (REDI_REVISTA_MAIL):
+            # Replaces MOJO_EDITOR_MAIL tag with the specified mail:
             rev_mail=$3
             if [ $INTERACTIVE = "true" ] && [ -z $3 ] ; then
-              read -p "Editor's Mail: " rev_mail
+              read -p "Editor's Mail ($MOJO_EDITOR_MAIL): " rev_mail
             fi
             if [ "$rev_mail" ] ; then
             echo "----> Editor's Mail: $rev_mail"
-                if grep -q "REDI_REVISTA_MAIL" $PATHBASE/source/templates/$DBDUMP ; then
-                  sed -i "s/REDI_REVISTA_MAIL/$rev_mail/g" $PATHTMP/$2-fill.sql
+                if grep -q "MOJO_EDITOR_MAIL" $PATHBASE/source/templates/$DBDUMP ; then
+                  sed -i "s/MOJO_EDITOR_MAIL/$rev_mail/g" $PATHTMP/$2-fill.sql
                 else
-                  echo "WARNING: REVISTA_MAIL to replace not found, first journal mail will set as $rev_mail "
+                  echo "WARNING: MOJO_EDITOR_MAIL not found, first journal mail will be set as $rev_mail "
                   echo "UPDATE ojs_$2.site_settings SET setting_value = '$rev_mail' WHERE site_settings.setting_name = 'contactEmail';" >> $PATHTMP/$2-tag.sql
                   echo "UPDATE ojs_$2.users SET email = '$rev_mail' WHERE users.user_id = 1;" >> $PATHTMP/$2-tag.sql
                 fi
             fi
 
-            # Replaces REDI_REVISTA_RESPONSABLE with the specified magazine's responsible name:
+            # Replaces MOJO_EDITOR_NAME & MOJO_EDITOR_LASTNAME with the specified magazine's Editor:
             rev_name=$4
             if [ $INTERACTIVE = "true" ] && [ -z $4 ] ; then
-              read -p "Editor's Full Name: " rev_name
+              read -p "Editor's Name ($MOJO_EDITOR_NAME $MOJO_EDITOR_NAME): " rev_name
+              read -p "Editor's Lastname ($MOJO_EDITOR_NAME $MOJO_EDITOR_LASTNAME): " rev_lastname
             fi
-            if [ "$rev_name" ] ; then
-                echo "----> Editor' Full Name: $rev_name"
-                sed -i "s/REDI_REVISTA_RESPONSABLE/$rev_name/g" $PATHTMP/$2-fill.sql
+            if [ "$rev_name" ] && [ "$rev_lastname" ] ; then
+                echo "----> Editor' Full Name: $rev_name $rev_lastname"
+                sed -i "s/MOJO_EDITOR_NAME/$rev_name/g" $PATHTMP/$2-fill.sql
+                sed -i "s/MOJO_EDITOR_LASTNAME/$rev_lastname/g" $PATHTMP/$2-fill.sql
+            else
+                echo "WARNING: The editor's name and surname won't be replaced as will be shown as a MOJO_VARIABLE"
             fi
 
-            # Replaces REDI_REVISTA_TITLE with the specified magazine's title:
+            # Replaces MOJO_JOURNAL_TITLE with the specified magazine's title:
             rev_tit=$5
             if [ $INTERACTIVE = "true" ] && [ -z $5 ] ; then
-              read -p "Magazine's Title: " rev_tit
+              read -p "Magazine's Title ($MOJO_JOURNAL_TITLE): " rev_tit
             fi
             if [ "$rev_tit" ] ; then
                 echo "----> Magazine's Title: $rev_tit"
-                if grep -q "REDI_REVISTA_TITLE" $PATHBASE/source/templates/$DBDUMP ; then
-                  sed -i "s/REDI_REVISTA_TITLE/$rev_tit/g" $PATHTMP/$2-fill.sql
+                if grep -q "MOJO_JOURNAL_TITLE" $PATHBASE/source/templates/$DBDUMP ; then
+                  sed -i "s/MOJO_JOURNAL_TITLE/$rev_tit/g" $PATHTMP/$2-fill.sql
                 else
                   echo "WARNING: REVISTA_TITLE to replace not found, first journal title will set as $rev_tit "
                   echo "UPDATE ojs_$2.site_settings SET setting_value = '$rev_tit' WHERE site_settings.setting_name = 'title';" >> $PATHTMP/$2-tag.sql
@@ -614,15 +605,40 @@ case $1 in
                 fi
             fi
 
-            # Replaces REDI_REVISTA_DESC with the specified magazine's title:
+            # Replaces MOJO_JOURNAL_DESCRIPTION with the specified magazine's title:
             if [ $INTERACTIVE = "true" ] && [ -z $5 ] ; then
-              read -p "Magazine's Description: " rev_desc
+                read -p "Magazine's Description ($MOJO_JOURNAL_DESCRIPTION): " rev_desc
+                sed -i "s/MOJO_JOURNAL_DESCRIPTION/$rev_desc/g" $PATHTMP/$2-fill.sql
             fi
-            if [ "$rev_desc" ] ; then
-                echo "----> Magazine's Description: $rev_desc"
-                if grep -q "REDI_REVISTA_DESC" $PATHBASE/source/templates/$DBDUMP ; then
-                  sed -i "s/REDI_REVISTA_DESC/$rev_desc/g" $PATHTMP/$2-fill.sql
-                fi
+
+            # EXTRA VARIABLES: When "interactive mode" extra variables are requested.
+            if [ $INTERACTIVE = "true" ] && [ -z MOJO_ADMIN_SERVICENAME ] ; then
+                read -p "Name of the Service of Journals ($MOJO_ADMIN_SERVICENAME): " mojo_admin_servicename
+                sed -i "s/MOJO_ADMIN_SERVICENAME/$rev_admin_servicename/g" $PATHTMP/$2-fill.sql
+            fi
+            if [ $INTERACTIVE = "true" ] && [ -z MOJO_ADMIN_NAME ] ; then
+                read -p "OJS Administrator's Name ($MOJO_ADMIN_NAME): " mojo_admin_name
+                sed -i "s/MOJO_ADMIN_NAME/$rev_admin_name/g" $PATHTMP/$2-fill.sql
+            fi
+            if [ $INTERACTIVE = "true" ] && [ -z MOJO_ADMIN_NAME ] ; then
+                read -p "OJS Administrator's Lastname ($MOJO_ADMIN_LASTNAME: " mojo_admin_lastname
+                sed -i "s/MOJO_ADMIN_LASTNAME/$rev_admin_lastname/g" $PATHTMP/$2-fill.sql
+            fi
+            if [ $INTERACTIVE = "true" ] && [ -z MOJO_CONTACT_NAME ] ; then
+                read -p "Journal Contact's Full Name ($MOJO_CONTACT_NAME): " mojo_contact_name
+                sed -i "s/MOJO_CONTACT_NAME/$rev_desc/g" $PATHTMP/$2-fill.sql
+            fi
+            if [ $INTERACTIVE = "true" ] && [ -z MOJO_CONTACT_MAIL ] ; then
+                read -p "Journal Contact's Mail ($MOJO_CONTACT_MAIL): " mojo_contact_mail
+                sed -i "s/MOJO_CONTACT_MAIL/$rev_contact_mail/g" $PATHTMP/$2-fill.sql
+            fi
+            if [ $INTERACTIVE = "true" ] && [ -z MOJO_JOURNAL_SUPPORT_NAME ] ; then
+                read -p "Journal Support's Full Name ($MOJO_JOURNAL_SUPPORT_NAME): " mojo_journal_support_name
+                sed -i "s/MOJO_JOURNAL_SUPPORT_NAME/$rev_journal_support_name/g" $PATHTMP/$2-fill.sql
+            fi
+            if [ $INTERACTIVE = "true" ] && [ -z MOJO_JOURNAL_SUPPORT_MAIL ] ; then
+                read -p "Journal Support's Mail ($MOJO_JOURNAL_SUPPORT_MAIL): " mojo_journal_support_mail
+                sed -i "s/MOJO_JOURNAL_SUPPORT_MAIL/$rev_journal_support_mail/g" $PATHTMP/$2-fill.sql
             fi
 
 
@@ -634,9 +650,15 @@ case $1 in
             # Get MySql root pwd:
             # mysqlPwd=$(getMyPwd)
             # echo ""
-            getMyPwd
+            # Or:
+            # getMyPwd
 
-            /usr/bin/mysql -u $mysqlUsr -p$mysqlPwd < $PATHTMP/$2-create.sql
+            # Let's execute this query:
+            /usr/bin/mysql -u $MOJO_MYSQL_USER -p$MOJO_MYSQL_PWD < $PATHTMP/$2-create.sql
+            if [ $DEBUG == true ] ; then 
+                echo "/usr/bin/mysql -u $MOJO_MYSQL_USER -p$MOJO_MYSQL_PWD < $PATHTMP/$2-create.sql"
+            fi
+
             echo "Magazine's DB was created."
         fi
     ;;
@@ -692,13 +714,13 @@ case $1 in
         else
             case $2 in
                 files)
-                    ./mojo.sh deletefiles "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+                    ./mojo.sh d-deletefiles "$3" "$4" "$5" "$6" "$7" "$8" "$9"
                 ;;
                 db)
-                    ./mojo.sh deletedb "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+                    ./mojo.sh d-deletedb "$3" "$4" "$5" "$6" "$7" "$8" "$9"
                 ;;
                 all)
-                    ./mojo.sh deleteall "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+                    ./mojo.sh d-deleteall "$3" "$4" "$5" "$6" "$7" "$8" "$9"
                 ;;
                 code)
                     echo "NOT IMPLEMENTED YET: You can create code structure with ./mojo.sh d-createfiles <shortname>"
@@ -721,7 +743,7 @@ case $1 in
         fi
     ;;
 
-    deletefiles)
+    d-deletefiles)
         # ToDo: Protect "base" files and BD
         # ToDo: Ask for confirmation (meanwhile dbpwd request does the job).
         # ToDo: Option to delete without confirmation.
@@ -732,7 +754,7 @@ case $1 in
 
         if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
-            echo "Syntax: ./mojo.sh deletefiles <shortname> [<forceDelete>]"
+            echo "Syntax: ./mojo.sh d-deletefiles <shortname> [<forceDelete>]"
             exit 0
         else
             echo "CODE & DATA of magazine [ojs_$2] are going to be REMOVED."
@@ -757,7 +779,7 @@ case $1 in
         fi
     ;;
 
-    deletedb)
+    d-deletedb)
         # ToDo: Ask for confirmation (meanwhile dbpwd request does the job).
         # ToDo: Backup before delete?
         # ToDo: Argument's validation.
@@ -767,7 +789,7 @@ case $1 in
 
         if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
-            echo "Syntax: ./mojo.sh deletedb <shortname> [<forceDelete>]"
+            echo "Syntax: ./mojo.sh d-deletedb <shortname> [<forceDelete>]"
             exit 0
         else
             echo "DB of magazine [ojs_$2] is going to be REMOVED."
@@ -781,8 +803,8 @@ case $1 in
 
             mkdir -p "$PATHTMP" 
 
-            # Delete BD with "ojs_revistaTag"
-            sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/deleteDB.sql" > $PATHTMP/$2-delete.sql
+            # Delete BD with "ojs_MOJO_JOURNAL_TAG"
+            sed -e "s/%MOJO_JOURNAL_TAG%/$2/g" "$PATHBASE/source/templates/deleteDB.sql" > $PATHTMP/$2-delete.sql
 
             # Get MySql root pwd:
             # mysqlPwd=$(getMyPwd)
@@ -794,7 +816,7 @@ case $1 in
         fi
     ;;
 
-    deleteall)
+    d-deleteall)
         # ToDo: Ask for confirmation (meanwhile dbpwd request does the job).
         # ToDo: Argument's validation.
         # ToDo: Error checking.
@@ -803,7 +825,7 @@ case $1 in
 
         if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
-            echo "Syntax: ./mojo.sh deleteall <shortname> [<forceDelete>]"
+            echo "Syntax: ./mojo.sh d-deleteall <shortname> [<forceDelete>]"
             exit 0
         else
             echo "Magazine [ojs_$2] is going to be FULL REMOVED (code, data and DB)"
@@ -813,9 +835,9 @@ case $1 in
             fi            
 
             # echo "----> Files removed..."
-            ./mojo.sh deletefiles $2 true
+            ./mojo.sh d-deletefiles $2 true
             # echo "----> DB removed..."
-            ./mojo.sh deletedb $2 true
+            ./mojo.sh d-deletedb $2 true
 
 	        echo ""
         	echo "================================================================="
@@ -927,10 +949,10 @@ case $1 in
                     echo "Backup for CODE & DATA is done!"
                     ;;                    
                 db)
-                    ./mojo.sh backupdb $3 $4
+                    ./mojo.sh d-backupdb $3 $4
                     ;;
                 all)
-                    ./mojo.sh backupall $3 $4
+                    ./mojo.sh d-backupall $3 $4
                     ;;
                 *)
                     # Show syntax:
@@ -940,13 +962,13 @@ case $1 in
         fi
     ;;
  
-    backupdb|bdb)
+    d-backupdb|bdb)
         # ToDo: Argument's validation.
         # ToDo: Error checking.
 
         if [ "$2" = "" ] ; then
             echo "Error: You must indicate the magazine's alias."
-            echo "Syntax: ./mojo.sh backupdb <shortname> [<isCheckpoint>]"
+            echo "Syntax: ./mojo.sh d-backupdb <shortname> [<isCheckpoint>]"
             echo "To get a list of every magazine: ./mojo.sh list"
             exit 0
         else
@@ -981,7 +1003,7 @@ case $1 in
         fi
     ;;
 
-    backupall|ball)
+    d-backupall|ball)
         # ToDo: Ask for confirmation.
         # ToDo: Argument's validation.
         # ToDo: Error checking.
@@ -990,7 +1012,7 @@ case $1 in
         then
             #echo "Backups a full magazine (db, code and docs)."
             echo "Error:  Wrong number of parameters"
-            echo "Syntax: ./mojo.sh backupall <shortname> [<isCheckpoint]"
+            echo "Syntax: ./mojo.sh d-backupall <shortname> [<isCheckpoint]"
             exit 0
         else
             echo "Running FULL backup of magazine: $2"
@@ -1151,7 +1173,7 @@ case $1 in
 		            getMyPwd
 
 		            # Creates the DB named "$3":
-		            sed -e "s/%revistaTag%/$3/g" "$PATHBASE/source/templates/createDB.sql" > $PATHTMP/$3-restoredb.sql
+		            sed -e "s/%MOJO_JOURNAL_TAG%/$3/g" "$PATHBASE/source/templates/createDB.sql" > $PATHTMP/$3-restoredb.sql
 		            /usr/bin/mysql -u $mysqlUsr -p$mysqlPwd < $PATHTMP/$3-restoredb.sql
 
 		            # Executes the tarballed dump:
@@ -1260,8 +1282,8 @@ case $1 in
             # echo ""
             getMyPwd
 
-            # Creates the DB named "ojs_revistaTag"
-            sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/createDB.sql" > $PATHTMP/$2-restoredb.sql
+            # Creates the DB named "ojs_MOJO_JOURNAL_TAG"
+            sed -e "s/%MOJO_JOURNAL_TAG%/$2/g" "$PATHBASE/source/templates/createDB.sql" > $PATHTMP/$2-restoredb.sql
             /usr/bin/mysql -u $mysqlUsr -p$mysqlPwd < $PATHTMP/$2-restoredb.sql
 
             # Executes the tarballed dump:
@@ -1282,7 +1304,7 @@ case $1 in
         #ToDo: Silent mode.
 
         if [ "$2" != "" ] ; then
-            sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/htaccessMagazine.base" > $PATHWEB/ojs-$2/htaccess.chunk
+            sed -e "s/%MOJO_JOURNAL_TAG%/$2/g" "$PATHBASE/source/templates/htaccessMagazine.base" > $PATHWEB/ojs-$2/htaccess.chunk
             if [ $DEBUG == true ] ; then echo "--> Htaccess: Created templated chunk file for magazine: $2" ; fi
         else
             sed -e "s/%TODAY%/$NOW/g" "$PATHBASE/source/templates/htaccess.base" > $PATHWEB/.htaccess
@@ -1313,7 +1335,7 @@ case $1 in
         #ToDo: Silent mode.
 
         if [ "$2" != "" ] ; then
-            sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/crontabMagazine.base" > $PATHWEB/ojs-$2/cron.chunk
+            sed -e "s/%MOJO_JOURNAL_TAG%/$2/g" "$PATHBASE/source/templates/crontabMagazine.base" > $PATHWEB/ojs-$2/cron.chunk
             if [ $DEBUG == true ] ; then echo "--> Crontab: Created chunk file for magazine: $2" ; fi
         else
             sed -e "s/%TODAY%/$NOW/g" "$PATHBASE/source/templates/crontab.base" > $PATHBASE/cronMagazines.sh
@@ -1358,7 +1380,7 @@ case $1 in
                 do
                     if [ $DEBUG == true ] ; then echo "Remove link: ${x} and linking to 'current' version." ; fi
                     rm "$PATHWEB/ojs-$2/${x}"
-                    ln -s -f "$PATHMOTOR/${x}" "$PATHWEB/ojs-$2"
+                    ln -s -f "$PATHENGINE/${x}" "$PATHWEB/ojs-$2"
                 done
                 echo "--> r-link: Recreated all symlinks for magazine $2"
             fi
@@ -1375,7 +1397,7 @@ case $1 in
         if [ "$2" != "" ] ; then
             if [ "$3" != "" ] ; then
                 rm "$PATHWEB/ojs-$2/$3"
-                cp "$PATHMOTOR/$3" "$PATHWEB/ojs-$2/$3" -a
+                cp "$PATHENGINE/$3" "$PATHWEB/ojs-$2/$3" -a
                 echo "--> link2fold: Folder $3 is not a link any more in magazine $2"
             else
                 echo "ERROR: A folder name is required."
@@ -1393,7 +1415,7 @@ case $1 in
         if [ "$2" != "" ] ; then
             if [ "$2" == "reset" ] ; then
                 # Resets the magazine's config file.
-                sed -e "s/%revistaTag%/$3/g" "$PATHBASE/source/templates/config.inc.php.base" > $PATHWEB/ojs-$3/config.inc.php
+                sed -e "s/%MOJO_JOURNAL_TAG%/$3/g" "$PATHBASE/source/templates/config.inc.php.base" > $PATHWEB/ojs-$3/config.inc.php
                 sed -i "s!%pathData%!$PATHDATA!g" "$PATHWEB/ojs-$3/config.inc.php"
                 echo "--> Reset config.inc.php for magazine $3."
                 # Resets htaccess.chunk from base template.
@@ -1401,13 +1423,13 @@ case $1 in
                 ./mojo.sh htaccess
             else
                 # Generates the magazine's config file to allow domainName.
-                sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/config.inc.php.Domain.base" > $PATHWEB/ojs-$2/config.inc.php
+                sed -e "s/%MOJO_JOURNAL_TAG%/$2/g" "$PATHBASE/source/templates/config.inc.php.Domain.base" > $PATHWEB/ojs-$2/config.inc.php
                 sed -i "s!%pathData%!$PATHDATA!g" "$PATHWEB/ojs-$2/config.inc.php"
                 sed -i "s!%domainName%!$3!g" "$PATHWEB/ojs-$2/config.inc.php"
                 echo "--> Recreated new config.inc.php for magazine $2 and domain $3."
 
                 # Generates the domainName htaccess chunk and recreates global htaccess.
-                sed -e "s/%revistaTag%/$2/g" "$PATHBASE/source/templates/htaccessMagazineDomain.base" > $PATHWEB/ojs-$2/htaccess.chunk
+                sed -e "s/%MOJO_JOURNAL_TAG%/$2/g" "$PATHBASE/source/templates/htaccessMagazineDomain.base" > $PATHWEB/ojs-$2/htaccess.chunk
                 sed -i "s!%domainName%!$3!g" "$PATHWEB/ojs-$2/htaccess.chunk"
                 echo "--> Recreated new htaccess.chunk for magazine $2 and domain $3."
                 ./mojo.sh htaccess
@@ -1452,7 +1474,7 @@ case $1 in
         else
         	case $pSubAction in
         		open)
-                    cp -a "$PATHMOTOR/index.php" "$PATHWEB/ojs-$pMagazine/index.php"
+                    cp -a "$PATHENGINE/index.php" "$PATHWEB/ojs-$pMagazine/index.php"
 					echo "Magazine $pMagazine is now OPEN."
 				;;
 				lock)
@@ -1460,13 +1482,13 @@ case $1 in
                         echo "Error: You must indicate a mail of contact"
                         echo "Syntax:  ./mojo.sh sethome <shortname> lock <mailOfContact>"
                     else
-                        sed -e "s/MOJO_MAIL/$pMail/g" "$PATHBASE/source/templates/lock.php" > $PATHTMP/$pMagazine-lock.php
+                        sed -e "s/MOJO_MAIL/$pMail/g" "$PATHFILEWORK" > $PATHTMP/$pMagazine-lock.php
                         cp -a "$PATHTMP/$pMagazine-lock.php" "$PATHWEB/ojs-$pMagazine/index.php"
     					echo "Magazine $pMagazine is now LOCKED."
                     fi
 				;;
 				work)
-                    cp -a "$PATHBASE/source/templates/work.php" "$PATHWEB/ojs-$pMagazine/index.php"
+                    cp -a "$PATHFILEWORK" "$PATHWEB/ojs-$pMagazine/index.php"
 					echo "Magazine $pMagazine is now in MANTAINANCE."
 				;;
 				*)

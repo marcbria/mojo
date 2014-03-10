@@ -1,1 +1,1 @@
-php /home/ojs/htdocs/ojs-%revistaTag%/tools/runScheduledTasks.php
+php /home/ojs/htdocs/ojs-%MOJO_JOURNAL_TAG%/tools/runScheduledTasks.php

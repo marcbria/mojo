@@ -1,2 +1,2 @@
-USE ojs_%revistaTag%;
-DROP DATABASE `ojs_%revistaTag%`;
+USE ojs_%MOJO_JOURNAL_TAG%;
+DROP DATABASE `ojs_%MOJO_JOURNAL_TAG%`;

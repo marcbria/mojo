@@ -23,8 +23,7 @@
     <Directory "/home/ojs/htdocs/">
        Options Indexes FollowSymLinks MultiViews
        AllowOverride All
-       Order allow,deny
-       Allow from all
+       Require all granted
        # DirectoryIndex redirect.php
    </Directory>
 

@@ -1,13 +1,18 @@
-# MBR #
-#######
+# Hidden #
+##########
+.gitconfig
 .cache
 .vim*
 .bash*
-.gitconfig
 .lesshst
 .profile
-.mbr
 .tmp
+.mozilla
+.config
+.cache
+.mysql_history
+.lesshst
+.mbr
 
 # Compiled source #
 ###################
@@ -49,8 +54,8 @@ webdata/*
 htdocs/*
 # !webdata/base
 # !htdocs/base
-# Jorunal Services added
 source/*
+!source/demo-redi
 scripts/config.mojo
 
 # Git Scripts #

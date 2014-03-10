@@ -1,12 +1,12 @@
 
-# Rules for magazine %revistaTag%
-RewriteRule ^%revistaTag%$ %revistaTag%/
-RewriteRule ^%revistaTag%/(.*)$ ojs-%revistaTag%/index.php/%revistaTag%/$1 [L,QSA]
-RewriteRule ^ojs-%revistaTag%/%revistaTag%/(.*)$ ojs-%revistaTag%/index.php/%revistaTag%/$1 [L,QSA]
+# Rules for magazine %MOJO_JOURNAL_TAG%
+RewriteRule ^%MOJO_JOURNAL_TAG%$ %MOJO_JOURNAL_TAG%/
+RewriteRule ^%MOJO_JOURNAL_TAG%/(.*)$ ojs-%MOJO_JOURNAL_TAG%/index.php/%MOJO_JOURNAL_TAG%/$1 [L,QSA]
+RewriteRule ^ojs-%MOJO_JOURNAL_TAG%/%MOJO_JOURNAL_TAG%/(.*)$ ojs-%MOJO_JOURNAL_TAG%/index.php/%MOJO_JOURNAL_TAG%/$1 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ojs-%revistaTag%/(.*)$ ojs-%revistaTag%/index.php/index/$1 [L]
+RewriteRule ^ojs-%MOJO_JOURNAL_TAG%/(.*)$ ojs-%MOJO_JOURNAL_TAG%/index.php/index/$1 [L]
 
 RewriteCond %{SERVER_NAME} ^%domainName%
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ %revistaTag%/$1 [L]
+RewriteRule ^(.*)$ %MOJO_JOURNAL_TAG%/$1 [L]

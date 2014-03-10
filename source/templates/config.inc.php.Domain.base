@@ -7,7 +7,7 @@
 ;
 ; config.TEMPLATE.inc.php
 ;
-; Plantilla de configuració per la revista "%revistaTag%"
+; Plantilla de configuració per la revista "%MOJO_JOURNAL_TAG%"
 ;
 ; Copyright (c) 2003-2011 Marc Bria
 ; Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
@@ -37,10 +37,10 @@ base_url = "http://%domainName%"
 ; sensitive information, the directory can be moved to a location that
 ; is not web-accessible if desired
 ; MBR:
-registry_dir = %pathData%/%revistaTag%/registry
+registry_dir = %pathData%/%MOJO_JOURNAL_TAG%/registry
 
 ; MBR: Session cookie name
-session_cookie_name = OJSSID-Alex-%revistaTag%
+session_cookie_name = OJSSID-magazine.localhost.net-%MOJO_JOURNAL_TAG%
 
 ; MBR: Patch to allow multiple OJS sites with RESTful URLs
 session_cookie_path = /
@@ -85,8 +85,8 @@ allow_url_fopen = Off
 ; base_url[myJournal] = http://www.myUrl.com/myJournal
 ; base_url[myOtherJournal] = http://myOtherJournal.myUrl.com
 ; MBR:
-base_url[index] = http://%domainName%/ojs-%revistaTag%
-base_url[%revistaTag%] = http://%domainName%
+base_url[index] = http://%domainName%/ojs-%MOJO_JOURNAL_TAG%
+base_url[%MOJO_JOURNAL_TAG%] = http://%domainName%
 
 ; Generate RESTful URLs using mod_rewrite.  This requires the
 ; rewrite directive to be enabled in your .htaccess or httpd.conf.
@@ -113,9 +113,9 @@ citation_checking_max_processes = 3
 
 driver = mysql
 host = localhost
-username = root
-password = "1c-t1-r00t-9FBE"
-name = ojs_%revistaTag%
+username = mojo 
+password = "setYourPass"
+name = ojs_%MOJO_JOURNAL_TAG%
 
 ; Enable persistent connections
 persistent = Off
@@ -193,7 +193,7 @@ charset_normalization = On
 ; Complete path to directory to store uploaded files
 ; (This directory should not be directly web-accessible)
 ; Windows users should use forward slashes
-files_dir = %pathData%/%revistaTag%
+files_dir = %pathData%/%MOJO_JOURNAL_TAG%
 
 ; Path to the directory to store public uploaded files
 ; (This directory should be web-accessible and the specified path
@@ -360,7 +360,7 @@ index[application/msword] = "/usr/bin/antiword %s"
 oai = On
 
 ; OAI Repository identifier
-repository_id = "%revistaTag%.redi-formacio.uab.cat"
+repository_id = "%MOJO_JOURNAL_TAG%.%domainName%"
 
 ; Maximum number of records per request to serve via OAI
 oai_max_records = 100

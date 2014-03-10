@@ -115,8 +115,8 @@ mysqlPwd="$MOJO_MYSQL_PWD"
 
 function getMyPwd() {
     # Get mySql pwd (may be is better using config variables... or directly OJS configs):
-    if [ -f .secret ] ; then
-    	. .secret
+    if [ -f $SCRIPTPATH/config.mojo ] ; then
+        . $SCRIPTPATH/config.mojo
     else
 	    # If not defined, asks for passwd:
 	    if [ ! $mysqlUsr ] ; then
@@ -239,8 +239,8 @@ case $1 in
         echo "Ask for config variables..."
         echo "Create user"
         echo "Create folder structure"
-        echo "Download OJS code"
-        echo ""
+        echo "Download OJS code: current"
+        echo "Create mysql user: mojo"
         #Add mojo to /usr/bin
         ln -s /home/ojs/scripts/mojo.sh /usr/bin/mojo
     ;;
@@ -651,10 +651,10 @@ case $1 in
             # mysqlPwd=$(getMyPwd)
             # echo ""
             # Or:
-            # getMyPwd
+            getMyPwd
 
             # Let's execute this query:
-            /usr/bin/mysql -u $MOJO_MYSQL_USER -p$MOJO_MYSQL_PWD < $PATHTMP/$2-create.sql
+            /usr/bin/mysql -u $mysqlUsr -p$mysqlPwd < $PATHTMP/$2-create.sql
             if [ $DEBUG == true ] ; then 
                 echo "/usr/bin/mysql -u $MOJO_MYSQL_USER -p$MOJO_MYSQL_PWD < $PATHTMP/$2-create.sql"
             fi

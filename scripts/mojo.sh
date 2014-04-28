@@ -43,7 +43,13 @@
 #                   |_ data:         Recover webdata of an specific ojs-magazine.
 ##                  d-restorecode:      (deprecated) Recovers the code of a formely backup for ojs-magazine.
 ##                  d-restoredb:        (deprecated) Recover a formely DB backup for ojs-magazine.
-##                  filldb:             (ToDo) Executes an sql script against the selected ojs-magazine.
+#                execute:            (dev) Executes a script against the selected ojs-magazine.
+#                   |_ sqlparam:     Executes the sql query passed by param.
+##                  |_ sqlfile:      Executes the sql query included in the file.
+##                  |_ phpparam:     Executes the php script passed by param.
+##                  |_ phpfile:      Executes the php script included in the file.
+#                user:               Operations over users.
+#                   |_ setpwd:       Sets user's password.
 #                htaccess:           Recreate the global htaccess file.
 #                crontab:            Recreate the global crontab file.
 #                r-links:            Recover symlinks for an specific site.

@@ -27,6 +27,7 @@ URLBASE="http://magazine.localhost.net"
 PATHBASE="/home/ojs"
 
 # Path tot the OJS code that will be shared between journals (P.e: $URLBASE/source/versions/current)
+# PATHENGINE="$PATHBASE/source/versions/develop"
 PATHENGINE="$PATHBASE/source/versions/current"
 
 # Suggestion: Build your own aternative "engines" (I didn't test every version, but it will probably 
@@ -50,13 +51,6 @@ PATHFILELOCK="$PATHBASE/source/templates/lock.php"
 # Path for the mantainance page
 PATHFILEWORK="$PATHBASE/source/templates/work.php"
 
-# Base URL for the service (P.e: http://revistes.uab.cat)
-URLBASE="http://magazine.localhost.net"
-# Some real live examples:
-# URLBASE="http://revistes.uab.cat"
-# URLBASE="http://journal-services.com"
-# Please, mail me (marc.bria@uab.es) if you use this script.
-
 # Path of the temporal folder (Pe: /tmp/mojo)
 PATHTMP="/tmp/mojo"
 
@@ -74,6 +68,7 @@ INTERACTIVE="true"
 
 # DB dump of the OJS model ("MOJO_" tags will be replaced)
 DBDUMP="demo-neutral/ojs_243-mojo.sql"
+#DBDUMP="demo-neutral/pkp.sql"
 # Other examples:
 # DBDUMP="demo-redi/dumpBaseNew.sql"
 # DBDUMP="baseFormacio.sql"

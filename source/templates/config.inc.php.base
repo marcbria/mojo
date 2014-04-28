@@ -114,7 +114,7 @@ citation_checking_max_processes = 3
 driver = mysql
 host = localhost
 username = mojo 
-password = "setYourPass"
+password = "setMyPass"
 name = ojs_%MOJO_JOURNAL_TAG%
 
 ; Enable persistent connections

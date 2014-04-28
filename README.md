@@ -81,6 +81,14 @@ Installation
     $ sudo vim /etc/hosts
  ```
 
+The default user/pwds of MOJO are:
+- mojo / setMyPass
+- admin / setMyAdminPass (OJS user)
+- editor / setMyEditorPass (OJS user) 
+
+Please, change ASAP to avoid security issues and fit your needs.
+
+
 Common issues
 -------------
 - Are permissions are not correcly set?
@@ -124,10 +132,10 @@ ToDo
 - [ ] Info: With versions, paths, plugins and other OJS basic info.
 - [ ] Update: To update OJS DB&code (based on /tools)
 - [ ] ReplaceVar command: To gloably change one OJS variable.
-- [ ] ExecuteSQL command: To run a query against all magazines.
+- [x] ExecuteSQL command: To run a query against all magazines.
 - [ ] PluginStatus command: To list/enable/disable plugin status.
-- [ ] Password command: To periodiaclly change admin password globaly or set different DB usr/pwd for each magazine.
-- [ ] Select command: To run comands against a set of magazines.
+- [x] Password command: To periodiaclly change admin password globaly or set different DB usr/pwd for each magazine.
+- [x] Select command: To run comands against a set of magazines.
 - [ ] Give feedback (Verbose, progressbar...) for "slow" operations.
 - [ ] Silent option for secondary commands.
 - [ ] Migration from bash to PHP as far as OJS is PHP (under discussion).

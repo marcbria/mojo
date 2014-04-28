@@ -58,6 +58,12 @@ source/*
 !source/demo-redi
 scripts/config.mojo
 
+# Clean up #
+############
+logs/*
+scripts/bck
+scripts/bck/*
+
 # Git Scripts #
 ###############
 # pushGithub.sh

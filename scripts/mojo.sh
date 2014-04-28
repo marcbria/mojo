@@ -70,8 +70,8 @@
 #       COMPANY:  UAB - SdP - ReDi
 #       LICENSE:  GPL 3
 #       CREATED:  06/04/11 16:53:15 CEST
-#       UPDATED:  10/03/14 18:32:33 PDT
-#      REVISION:  0.30
+#       UPDATED:  23/04/14 18:28:33 PDT
+#      REVISION:  0.31
 #===============================================================================
 
 # SCRIPT CONFIGURATION: See config.mojo
@@ -260,7 +260,7 @@ case $1 in
         setParams "$@"
         echo "DO -> $pAction !!"
 
-		# Testing of snippets
+        # Testing of snippets
 
         # getMyPwd
         # echo "mysqlUsr: $mysqlUsr" 
@@ -307,7 +307,7 @@ case $1 in
 		# ToDo: Levels of detail.
 		# ToDo: Action detailed help.
 
-		echo "Version: 0.27"
+		echo "Version: 0.31"
         echo "Syntax: ./mojo.sh <action> [<subaction>] <shortname> [<other>]"
         echo ""
         echo "        <action>: help (h):           Script syntax."
@@ -344,7 +344,14 @@ case $1 in
         echo "                     |_ data:         Recover webdata of an specific ojs-magazine."
         # echo "                  d-restorecode:        (deprecated) Recovers the code of a formely backup for ojs-magazine."
         # echo "                  d-restoredb:          (deprecated) Recover a formely DB backup for ojs-magazine."
-        # echo "                  filldb:               (dev) Executes an sql script against the selected ojs-magazine."
+        # echo "                  filldb:               (dev) Executes a sql script against the selected ojs-magazine."
+        echo "                  execute:            (dev) Executes a script against the selected ojs-magazine."
+        echo "                     |_ sqlparam:     Executes the sql query passed by param."
+        # echo "                     |_ sqlfile:      Executes the sql query included in the file."
+        # echo "                     |_ phpparam:     Executes the php script passed by param."
+        # echo "                     |_ phpfile:      Executes the php script included in the file."
+        echo "                  user:               Operations over users."
+        echo "                     |_ setpwd:       Sets user's password."
         echo "                  htaccess:           Recreate the global htaccess file."
         echo "                  crontab:            Recreate the global crontab file."
         echo "                  r-links:            Recover symlinks for an specific site."
@@ -1300,6 +1307,83 @@ case $1 in
         fi
     ;;
 
+    execute)
+        # Params: (new approach)
+        pAction="$1"    #execute
+        pMagazine="$2"
+        pSubAction="$3"
+        pQuery="$4"
+        pVerbose="$5"
+
+        #DEBUG: showParams "$@"
+
+        if [ "$pQuery" = "" ] ; then
+            echo "Error: You must indicate the magazine's alias, the operation and the sub-action:"
+            # echo "Syntax:  ./mojo.sh user <shortname> setpwd <username> <password> " 
+            echo "Syntax:  ./mojo.sh execute <shortname> sqlparam <theSqlQuery> [<verbose>]"
+            echo ""
+            echo "Sub-actions:"
+            echo "    * sqlparam:       Executes the specified query against the <shorname> database."
+            echo ""
+            echo "Example: ./mojo.sh execute myMagazine sqlparam \"select * from users;\" 1"
+            echo ""
+            exit 0
+        else
+            case $pSubAction in
+                sqlparam)
+                    getMyPwd
+                    # Let's execute this query:
+                    if [ "$pVerbose" ] ; then
+                        /usr/bin/mysql -D ojs_$pMagazine -u $mysqlUsr -p$mysqlPwd -v -e "$pQuery"
+                    else
+                        /usr/bin/mysql -D ojs_$pMagazine -u $mysqlUsr -p$mysqlPwd -e "$pQuery"
+                    fi
+                ;;
+                *)
+                  ./mojo.sh user
+                ;;
+            esac
+        fi
+    ;;
+
+
+
+
+    user)
+        # Params: (new approach)
+        pAction="$1"  #user
+        pMagazine="$2"
+        pSubAction="$3"
+        pUser="$4"
+        pPasswd="$5"
+
+        #DEBUG: showParams "$@"
+
+        if [ "$pPasswd" = "" ] ; then
+            echo "Error: You must indicate the magazine's alias, the operation and the sub-action:"
+            #echo "Syntax:  ./mojo.sh sethome <shortname> <sub-action> "
+            echo "Syntax:  ./mojo.sh user <shortname> setpwd <username> <password> "
+            echo "Sub-actions:"
+            echo "    * setpwd:       Overwites user's pwd."
+            echo "Example: ./mojo.sh user myMagazine setpwd admin myNewPwd"
+            exit 0
+        else
+            case $pSubAction in
+                setpwd)
+                    echo "Canviar pwd de [$pUser] per [$pPasswd] a la revista [$pMagazine]"
+
+                    getMyPwd
+
+                    # Let's execute this query:
+                    /usr/bin/mysql -D ojs_$pMagazine -u $mysqlUsr -p$mysqlPwd -e "UPDATE users SET password=SHA1(CONCAT(username, '$pPasswd')) WHERE username = '$pUser';"
+                ;;
+                *)
+                  ./mojo.sh user 
+                ;;
+            esac
+        fi
+    ;;
+
     htaccess)
         #ToDo: Silent mode.
 
@@ -1454,10 +1538,10 @@ case $1 in
     ;;
 
     sethome)
-		# Params: (new approach)
-		pAction="$1"
+		    # Params: (new approach)
+    		pAction="$1"
         pMagazine="$2"
-		pSubAction="$3"
+    		pSubAction="$3"
         pMail="$4"
 
         #DEBUG: showParams "$@"
@@ -1465,36 +1549,36 @@ case $1 in
         if [ "$pAction" = "" ] || [ "$pSubAction" = "" ] ; then
             echo "Error: You must indicate the magazine's alias, the operation and the sub-action:"
             echo "Syntax:  ./mojo.sh sethome <shortname> <sub-action> "
-        	echo "Sub-actions:"
-	        echo "    * open:         Open the magazine (recovers OJS original index.php)."
-        	echo "    * lock:         The magazine is Locked."
-        	echo "    * work:         The magazine is in Mantainance."
+          	echo "Sub-actions:"
+	          echo "    * open:         Open the magazine (recovers OJS original index.php)."
+          	echo "    * lock:         The magazine is Locked."
+        	  echo "    * work:         The magazine is in Mantainance."
             echo "Example: ./mojo.sh sethome ensciencias lock"
             exit 0
         else
-        	case $pSubAction in
-        		open)
+        	  case $pSubAction in
+        		    open)
                     cp -a "$PATHENGINE/index.php" "$PATHWEB/ojs-$pMagazine/index.php"
-					echo "Magazine $pMagazine is now OPEN."
-				;;
-				lock)
+					          echo "Magazine $pMagazine is now OPEN."
+				        ;;
+				        lock)
                     if [ "$pMail" = "" ] ; then
                         echo "Error: You must indicate a mail of contact"
                         echo "Syntax:  ./mojo.sh sethome <shortname> lock <mailOfContact>"
                     else
                         sed -e "s/MOJO_MAIL/$pMail/g" "$PATHFILEWORK" > $PATHTMP/$pMagazine-lock.php
                         cp -a "$PATHTMP/$pMagazine-lock.php" "$PATHWEB/ojs-$pMagazine/index.php"
-    					echo "Magazine $pMagazine is now LOCKED."
+    					          echo "Magazine $pMagazine is now LOCKED."
                     fi
-				;;
-				work)
+				        ;;
+                work)
                     cp -a "$PATHFILEWORK" "$PATHWEB/ojs-$pMagazine/index.php"
-					echo "Magazine $pMagazine is now in MANTAINANCE."
-				;;
-				*)
-					./mojo.sh sethome
-				;;
-			esac
+            				echo "Magazine $pMagazine is now in MANTAINANCE."
+        				;;
+        				*)
+      	    				./mojo.sh sethome
+        				;;
+      			esac
         fi
     ;;
 

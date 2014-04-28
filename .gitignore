@@ -60,6 +60,10 @@ scripts/config.mojo
 
 # Clean up #
 ############
+cronMagazines.sh
+pushGithub.sh
+release.sh
+replaceVar.sh
 logs/*
 scripts/bck
 scripts/bck/*

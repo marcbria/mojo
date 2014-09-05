@@ -13,6 +13,7 @@
 .mysql_history
 .lesshst
 .mbr
+.bck
 
 # Compiled source #
 ###################
@@ -52,10 +53,12 @@ Thumbs.db
 backup/*
 webdata/*
 htdocs/*
+!htdocs/robots.txt.php
 # !webdata/base
 # !htdocs/base
 source/*
-!source/demo-redi
+!source/templates
+source/templates/old/*
 scripts/config.mojo
 
 # Clean up #
@@ -70,4 +73,4 @@ scripts/bck/*
 
 # Git Scripts #
 ###############
-# pushGithub.sh
+pushGithub.sh

@@ -1,0 +1,30 @@
+<VirtualHost *:80>
+
+    ServerAdmin marc.bria@uab.cat
+    DocumentRoot /home/ojs/htdocs/
+    ServerName magazine.localhost.net
+
+    # Real name:
+    #ServerAlias redi.uab.cat
+    #ServerAlias redi.uab.es
+
+    # Extra magazines:
+    ServerAlias www.revista-exemple.com
+    ServerAlias www.example.com
+
+    ErrorLog /home/ojs/logs/error.log
+    LogLevel warn
+    CustomLog /home/ojs/logs/access.log combined
+
+    # Debug:
+    # RewriteLog "/home/ojs/logs/rewrite.log"
+    # RewriteLogLevel 1
+
+    <Directory "/home/ojs/htdocs/">
+       Options Indexes FollowSymLinks MultiViews
+       AllowOverride All
+       Require all granted
+       # DirectoryIndex redirect.php
+   </Directory>
+
+</VirtualHost>

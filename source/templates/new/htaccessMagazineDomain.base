@@ -1,0 +1,12 @@
+
+# Rules for magazine %MOJO_JOURNAL_TAG%
+RewriteRule ^%MOJO_JOURNAL_TAG%$ %MOJO_JOURNAL_TAG%/
+RewriteRule ^%MOJO_JOURNAL_TAG%/(.*)$ ojs-%MOJO_JOURNAL_TAG%/index.php/%MOJO_JOURNAL_TAG%/$1 [L,QSA]
+RewriteRule ^ojs-%MOJO_JOURNAL_TAG%/%MOJO_JOURNAL_TAG%/(.*)$ ojs-%MOJO_JOURNAL_TAG%/index.php/%MOJO_JOURNAL_TAG%/$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ojs-%MOJO_JOURNAL_TAG%/(.*)$ ojs-%MOJO_JOURNAL_TAG%/index.php/index/$1 [L]
+
+RewriteCond %{SERVER_NAME} ^%domainName%
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ %MOJO_JOURNAL_TAG%/$1 [L]

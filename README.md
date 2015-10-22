@@ -40,8 +40,8 @@ Installation
     $ sudo -s
     $ cp /home/ojs/source/templates/virtualHost.base /etc/apache2/sites-available/ojs
     $ vim /etc/apache2/sites-available/ojs;          # Replace magazine.localhost.net with your domain or GOTO 8.
-    $ ln /etc/apache2/sites-enabled/ojs /etc/apache2/sites-available/ojs
-    $ chown root:www-data /etc/apache/sites-available/ojs
+    $ ln /etc/apache2/sites-avialable/ojs /etc/apache2/sites-enabled/ojs 
+    $ chown root:www-data /etc/apache2/sites-available/ojs 
     $ /etc/init.d/apache restart
  ```
 
